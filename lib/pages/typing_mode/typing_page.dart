@@ -9,7 +9,7 @@ class TypePage extends StatelessWidget {
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
 
-  final bool _isPlaying = false;
+  // final bool _isPlhelheaying = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

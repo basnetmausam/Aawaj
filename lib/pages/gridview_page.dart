@@ -83,13 +83,17 @@ class GridViewPage extends StatelessWidget {
                                       child: listItem(list[index]))));
                         })),
               ),
-            const ElevatedButton(
-              onPressed: (null),
-              child: null,
-              style: ButtonStyle(
-                  // backgroundColor: Color(Colors.black),
-                  minimumSize: Size(100, 50)),
-            )
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 50),
+                  primary: Colors.purple,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold)),
+              child: const Text('Next !'),
+            ),
           ],
         ),
       ),

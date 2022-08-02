@@ -14,9 +14,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("HomePage"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("HomePage"),
+      // ),
       // backgroundColor: context.canvasColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -83,7 +83,7 @@ class HomePage extends StatelessWidget {
                         width: 160,
                         decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/eye.png'),
+                            image: AssetImage('assets/images/hand.png'),
                             // fit: BoxFit.contain,
                           ),
                           color: context.cardColor,
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
                         width: 275,
                         decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/eye.png'),
+                            image: AssetImage('assets/images/hand.png'),
                             // fit: BoxFit.contain,
                           ),
                           color: context.cardColor,
@@ -166,14 +166,14 @@ class HomePage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        // Navigator.pushNamed(context, MyRoutes.handsRoute);
                       },
                       child: Container(
                         height: 173,
                         width: 160,
                         decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/hand.png'),
+                            image: AssetImage('assets/images/eye.png'),
                             // fit: BoxFit.contain,
                           ),
                           color: context.cardColor,
@@ -207,14 +207,14 @@ class HomePage extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        // Navigator.pushNamed(context, MyRoutes.handsRoute);
                       },
                       child: Container(
                         height: 250,
                         width: 275,
                         decoration: BoxDecoration(
                           image: const DecorationImage(
-                            image: AssetImage('assets/images/hand.png'),
+                            image: AssetImage('assets/images/eye.png'),
                             // fit: BoxFit.contain,
                           ),
                           color: context.cardColor,

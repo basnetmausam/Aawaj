@@ -76,7 +76,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        Navigator.pushNamed(context, MyRoutes.taptapRoute);
                       },
                       child: Container(
                         height: 173,
@@ -117,7 +117,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        Navigator.pushNamed(context, MyRoutes.taptapRoute);
                       },
                       child: Container(
                         height: 250,
@@ -166,7 +166,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        Navigator.pushNamed(context, MyRoutes.typeRoute);
                       },
                       child: Container(
                         height: 173,
@@ -207,7 +207,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.handsRoute);
+                        Navigator.pushNamed(context, MyRoutes.typeRoute);
                       },
                       child: Container(
                         height: 250,

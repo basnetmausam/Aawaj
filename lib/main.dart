@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:major_try/pages/gridview_page.dart';
 import 'package:major_try/pages/hands_on_mode/choose_option_page.dart';
 import 'package:major_try/pages/home_page.dart';
+import 'package:major_try/pages/typing_mode/typing_page.dart';
 import 'package:major_try/themes.dart';
 import 'package:major_try/utils/routes.dart';
 
@@ -33,8 +34,10 @@ class MyApp extends StatelessWidget {
       routes: {
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.handsRoute: (context) => const HandsOn(),
+        MyRoutes.taptapRoute: (context) => const GridViewPage(),
+        MyRoutes.typeRoute: (context) => const TypePage(),
       },
-      home: const GridViewPage(),
+      home: const HomePage(),
     );
   }
 }
