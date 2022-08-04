@@ -193,7 +193,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      "hands on.",
+                      "hands free.",
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -234,7 +234,7 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      "hands on.",
+                      "hands free.",
                       style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.bold,

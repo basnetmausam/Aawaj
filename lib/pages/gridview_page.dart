@@ -20,6 +20,7 @@ class GridViewPage extends StatelessWidget {
     List<Words> list = PronounData().pronounList;
 
     return Scaffold(
+      appBar: AppBar(title: const Text("Tap-Tap Go!")),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: Column(
@@ -57,7 +58,7 @@ class GridViewPage extends StatelessWidget {
                           return AnimationConfiguration.staggeredGrid(
                               columnCount: 2,
                               position: index,
-                              duration: const Duration(milliseconds: 1000),
+                              duration: const Duration(milliseconds: 500),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
                                       delay: const Duration(milliseconds: 100),
@@ -79,7 +80,7 @@ class GridViewPage extends StatelessWidget {
                               duration: const Duration(milliseconds: 1000),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
-                                      delay: const Duration(milliseconds: 100),
+                                      delay: const Duration(milliseconds: 50),
                                       child: listItem(list[index]))));
                         })),
               ),
@@ -91,7 +92,7 @@ class GridViewPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold)),
+                      fontSize: 22, fontWeight: FontWeight.bold)),
               child: const Text('Next !'),
             ),
           ],
