@@ -1,4 +1,4 @@
-# major_try
+# aawaj_flutter
 
 A new Flutter project.
 
