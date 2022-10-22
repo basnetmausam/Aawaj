@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../api/transliteration_api.dart';
+import '../../../api/transliteration_api.dart';
 
 class TypePage extends StatefulWidget {
   const TypePage({Key? key}) : super(key: key);

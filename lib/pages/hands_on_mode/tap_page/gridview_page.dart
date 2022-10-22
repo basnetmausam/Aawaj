@@ -2,12 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
+import 'package:major_try/widgets/pop_words.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../data/words_data.dart';
+import '../../../data/words_data.dart';
 
-class GridViewPage extends StatelessWidget {
+class GridViewPage extends StatefulWidget {
   const GridViewPage({Key? key}) : super(key: key);
+
+  @override
+  State<GridViewPage> createState() => _GridViewPageState();
+}
+
+class _GridViewPageState extends State<GridViewPage> {
+  final tappedWords = TextEditingController();
+  List<Words> list = PronounData().pronounList;
+  List<Words> noun = NounData().nounList;
+  List<Words> verb = VerbData().verbList;
+  List<Words> matra = MatraData().matraList;
+  int count = 0;
 
   bool isTablet(BuildContext context) =>
       MediaQuery.of(context).size.width >= 600;
@@ -17,8 +30,6 @@ class GridViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Words> list = PronounData().pronounList;
-
     return Scaffold(
       appBar: AppBar(title: const Text("Tap-Tap Go!")),
       body: Padding(
@@ -38,10 +49,10 @@ class GridViewPage extends StatelessWidget {
               height: 32,
             ),
             TextFormField(
+              controller: tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
+                  border: OutlineInputBorder(), hintText: 'Tap Words'),
             ),
             const SizedBox(
               height: 32,
@@ -84,17 +95,17 @@ class GridViewPage extends StatelessWidget {
                                       child: listItem(list[index]))));
                         })),
               ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  primary: Colors.purple,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  textStyle: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Next !'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(
+            //       minimumSize: const Size(double.infinity, 50),
+            //       primary: Colors.purple,
+            //       padding:
+            //           const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            //       textStyle: const TextStyle(
+            //           fontSize: 22, fontWeight: FontWeight.bold)),
+            //   child: const Text('Next !'),
+            // ),
           ],
         ),
       ),
@@ -102,16 +113,46 @@ class GridViewPage extends StatelessWidget {
   }
 
   Widget listItem(Words words) {
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Center(
-          child: Text(
-            words.word,
-            style: TextStyle(
-                fontFamily: GoogleFonts.poppins().fontFamily,
-                fontSize: 25,
-                fontWeight: FontWeight.bold),
-          ),
-        ));
+    return InkWell(
+      splashColor: Colors.blue.withAlpha(30),
+      onTap: () {
+        count += 1;
+        switch (count) {
+          case 1:
+            list = noun;
+            break;
+          case 2:
+            list = verb;
+            break;
+          // case 3: new page.
+          default:
+        }
+        setState(() {});
+        // adding the newly tapped words to the previous words.
+        if (list == matra) {
+          tappedWords.text = "${tappedWords.text}${words.word}";
+        } else {
+          tappedWords.text = "${tappedWords.text}${words.word}";
+        }
+      },
+      onLongPress: (() {
+        list = matra;
+        setState(() {});
+        tappedWords.text = "${tappedWords.text} ${words.word}";
+      }),
+      child: Card(
+          // elevation: 10,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Center(
+            child: Text(
+              words.word,
+              style: TextStyle(
+                  fontFamily: GoogleFonts.poppins().fontFamily,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
+            ),
+          )),
+    );
   }
 }
