@@ -115,7 +115,18 @@ class _GridViewPageState extends State<GridViewPage> {
   Widget listItem(Words words) {
     return InkWell(
       splashColor: Colors.blue.withAlpha(30),
+      onLongPress: (() {
+        list = matra;
+        setState(() {});
+        tappedWords.text = "${tappedWords.text} ${words.word}";
+      }),
       onTap: () {
+        // adding the newly tapped words to the previous words.
+        if (list == matra) {
+          tappedWords.text = "${tappedWords.text}${words.word}";
+        } else {
+          tappedWords.text = "${tappedWords.text} ${words.word}";
+        }
         count += 1;
         switch (count) {
           case 1:
@@ -128,18 +139,7 @@ class _GridViewPageState extends State<GridViewPage> {
           default:
         }
         setState(() {});
-        // adding the newly tapped words to the previous words.
-        if (list == matra) {
-          tappedWords.text = "${tappedWords.text}${words.word}";
-        } else {
-          tappedWords.text = "${tappedWords.text}${words.word}";
-        }
       },
-      onLongPress: (() {
-        list = matra;
-        setState(() {});
-        tappedWords.text = "${tappedWords.text} ${words.word}";
-      }),
       child: Card(
           // elevation: 10,
           shape:
