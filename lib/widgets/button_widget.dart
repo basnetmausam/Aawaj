@@ -16,6 +16,6 @@ class ButtonWidget extends StatelessWidget {
           minimumSize: const Size.fromHeight(50),
         ),
         onPressed: onClicked,
-        child: Text(text, style: TextStyle(fontSize: 20)),
+        child: Text(text, style: const TextStyle(fontSize: 20)),
       );
 }
