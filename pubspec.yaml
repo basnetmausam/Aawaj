@@ -36,6 +36,7 @@ dependencies:
   velocity_x: ^3.5.1
   transliteration: ^0.0.6
   firebase_core: ^2.1.1
+  easy_audio_player: ^0.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

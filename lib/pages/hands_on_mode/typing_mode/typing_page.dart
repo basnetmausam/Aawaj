@@ -42,65 +42,84 @@ class _TypePageState extends State<TypePage> {
                 Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Type Words",
-                        style: context.textTheme.headline1,
-                        textAlign: TextAlign.justify,
-                      ),
-                      Text(
-                        " to Speak !",
-                        style: context.textTheme.headline2,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Form(
-                        key: formKey,
-                        child: TypeAheadField<String?>(
-                          hideKeyboard: false,
-                          // hideSuggestionsOnKeyboardHide: false,
-                          textFieldConfiguration: TextFieldConfiguration(
-                            controller: controllerWord,
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.keyboard_alt_outlined),
-                              border: OutlineInputBorder(),
-                              hintText: 'Type Words',
-                            ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Type Words",
+                            style: context.textTheme.headline1,
+                            textAlign: TextAlign.justify,
                           ),
-                          suggestionsCallback: TranslitAPI.getWordSuggestions,
-                          itemBuilder: (context, String? suggestion) {
-                            final word = suggestion!;
-
-                            return ListTile(
-                              title: Text(word),
-                            );
-                          },
-                          noItemsFoundBuilder: (context) => const SizedBox(
-                            height: 100,
-                            child: Center(
-                              child: Text(
-                                'No words detected',
-                                style: TextStyle(fontSize: 18),
+                          Text(
+                            " to Speak !",
+                            style: context.textTheme.headline2,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Form(
+                            key: formKey,
+                            child: TypeAheadField<String?>(
+                              hideKeyboard: false,
+                              // hideSuggestionsOnKeyboardHide: false,
+                              textFieldConfiguration: TextFieldConfiguration(
+                                controller: controllerWord,
+                                decoration: const InputDecoration(
+                                  prefixIcon: Icon(Icons.keyboard_alt_outlined),
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Type Words',
+                                ),
                               ),
+                              suggestionsCallback:
+                                  TranslitAPI.getWordSuggestions,
+                              itemBuilder: (context, String? suggestion) {
+                                final word = suggestion!;
+
+                                return ListTile(
+                                  title: Text(word),
+                                );
+                              },
+                              noItemsFoundBuilder: (context) => const SizedBox(
+                                height: 100,
+                                child: Center(
+                                  child: Text(
+                                    'No words detected',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                              onSuggestionSelected: (String? suggestion) {
+                                var lis = controllerWord.text.split(' ');
+
+                                var nayaList =
+                                    lis.getRange(0, lis.length - 1).join(" ");
+
+                                controllerWord.text =
+                                    "$nayaList ${suggestion!} ";
+
+                                // ScaffoldMessenger.of(context)
+                                //   ..removeCurrentSnackBar()
+                                //   ..showSnackBar(SnackBar(
+                                //     content: Text('Selected user: ${user.name}'),
+                                //   ));
+                              },
                             ),
                           ),
-                          onSuggestionSelected: (String? suggestion) {
-                            var lis = controllerWord.text.split(' ');
-
-                            var nayaList =
-                                lis.getRange(0, lis.length - 1).join(" ");
-
-                            controllerWord.text = "$nayaList ${suggestion!} ";
-
-                            // ScaffoldMessenger.of(context)
-                            //   ..removeCurrentSnackBar()
-                            //   ..showSnackBar(SnackBar(
-                            //     content: Text('Selected user: ${user.name}'),
-                            //   ));
-                          },
-                        ),
+                          SizedBox(
+                            height: 500,
+                          ),
+                          ElevatedButton(
+                            onPressed: (() {}),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.purple),
+                            child: const Text(
+                              "Speak",
+                              style: TextStyle(fontSize: 30),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
