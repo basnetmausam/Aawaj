@@ -13,7 +13,7 @@ class OutputPage extends StatelessWidget {
       body: Center(
         child: Text(
           sentence.toString(),
-          style: TextStyle(fontSize: 32),
+          style: const TextStyle(fontSize: 32),
         ),
       ),
     );

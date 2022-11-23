@@ -3,7 +3,6 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
-import 'package:major_try/utils/routes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
@@ -89,7 +88,7 @@ class _NounPageState extends State<NounPage> {
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: Color.fromARGB(255, 89, 21, 101),
+                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(

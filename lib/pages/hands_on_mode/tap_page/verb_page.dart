@@ -6,7 +6,6 @@ import 'package:major_try/pages/output_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
-import '../../../utils/routes.dart';
 
 class VerbPage extends StatefulWidget {
   final TextEditingController tappedWords;
@@ -82,12 +81,12 @@ class _VerbPageState extends State<VerbPage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: ((context) => OutputPage(
-                            sentence: "${widget.tappedWords.text}"))));
+                        builder: ((context) =>
+                            OutputPage(sentence: widget.tappedWords.text))));
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: Color.fromARGB(255, 89, 21, 101),
+                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(
