@@ -63,7 +63,7 @@ class _TypePageState extends State<TypePage> {
                             key: formKey,
                             child: TypeAheadField<String?>(
                               hideKeyboard: false,
-                              // hideSuggestionsOnKeyboardHide: false,
+                              hideSuggestionsOnKeyboardHide: false,
                               textFieldConfiguration: TextFieldConfiguration(
                                 controller: controllerWord,
                                 decoration: const InputDecoration(
@@ -107,7 +107,7 @@ class _TypePageState extends State<TypePage> {
                               },
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 500,
                           ),
                           ElevatedButton(
@@ -116,8 +116,8 @@ class _TypePageState extends State<TypePage> {
                                 backgroundColor: Colors.purple),
                             child: const Text(
                               "Speak",
-                              style: TextStyle(fontSize: 30),
-                            ),
+                              style: TextStyle(fontSize: 32),
+                            ).py12(),
                           ),
                         ],
                       ),

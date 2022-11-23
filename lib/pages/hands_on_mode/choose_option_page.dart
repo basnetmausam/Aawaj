@@ -14,9 +14,9 @@ class HandsOn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Choose HandsOn Mode."),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Choose HandsOn Mode."),
+      // ),
       // backgroundColor: context.canvasColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,7 +76,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.taptapRoute);
+                        Navigator.pushNamed(context, MyRoutes.pronounRoute);
                       },
                       child: Container(
                         height: 173,
@@ -117,7 +117,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.taptapRoute);
+                        Navigator.pushNamed(context, MyRoutes.pronounRoute);
                       },
                       child: Container(
                         height: 250,
