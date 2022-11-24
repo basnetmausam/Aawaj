@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../api/transliteration_api.dart';
+import '../../output_page.dart';
 
 class TypePage extends StatefulWidget {
   const TypePage({Key? key}) : super(key: key);
@@ -21,6 +22,23 @@ class _TypePageState extends State<TypePage> {
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
+
+  late FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
 
   // final bool _isPlhelheaying = false;
   @override
@@ -62,10 +80,13 @@ class _TypePageState extends State<TypePage> {
                           Form(
                             key: formKey,
                             child: TypeAheadField<String?>(
+                              hideOnError: true,
                               hideKeyboard: false,
                               hideSuggestionsOnKeyboardHide: false,
                               textFieldConfiguration: TextFieldConfiguration(
                                 controller: controllerWord,
+                                autofocus: true,
+                                focusNode: myFocusNode,
                                 decoration: const InputDecoration(
                                   prefixIcon: Icon(Icons.keyboard_alt_outlined),
                                   border: OutlineInputBorder(),
@@ -82,7 +103,7 @@ class _TypePageState extends State<TypePage> {
                                 );
                               },
                               noItemsFoundBuilder: (context) => const SizedBox(
-                                height: 100,
+                                height: 60,
                                 child: Center(
                                   child: Text(
                                     'No words detected',
@@ -99,11 +120,10 @@ class _TypePageState extends State<TypePage> {
                                 controllerWord.text =
                                     "$nayaList ${suggestion!} ";
 
-                                // ScaffoldMessenger.of(context)
-                                //   ..removeCurrentSnackBar()
-                                //   ..showSnackBar(SnackBar(
-                                //     content: Text('Selected user: ${user.name}'),
-                                //   ));
+                                Future.delayed(const Duration(milliseconds: 1),
+                                    () {
+                                  myFocusNode.requestFocus();
+                                });
                               },
                             ),
                           ),
@@ -111,7 +131,13 @@ class _TypePageState extends State<TypePage> {
                             height: 500,
                           ),
                           ElevatedButton(
-                            onPressed: (() {}),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) => OutputPage(
+                                          sentence: controllerWord.text))));
+                            },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.purple),
                             child: const Text(
