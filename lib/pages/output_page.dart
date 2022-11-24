@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:major_try/widgets/player.dart';
 
 class OutputPage extends StatelessWidget {
   final String sentence;
@@ -10,12 +11,7 @@ class OutputPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("This is Output Page"),
       ),
-      body: Center(
-        child: Text(
-          sentence.toString(),
-          style: const TextStyle(fontSize: 32),
-        ),
-      ),
+      body: Center(child: MyPlayer(sentence)),
     );
   }
 }
