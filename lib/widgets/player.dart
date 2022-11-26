@@ -54,9 +54,10 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     // Try to load audio from a source and catch any errors.
     try {
       // await _player.setAsset("assets/music/" + _path);
-      var file = await downloadFile(
-          'http://10.0.2.2:5000/api?query=' + _sentence, "speech.wav");
-      await _player.setAudioSource(AudioSource.uri(Uri.parse(file.path)));
+      // var file = await downloadFile(
+      //     'http://0.0.0.0:5000/api?query=' + _sentence, "speech.wav");
+      await _player.setAudioSource(AudioSource.uri(
+          Uri.parse('http://192.168.101.7:5000/api?query=' + _sentence)));
     } catch (e) {
       print("Error loading audio source: $e");
     }
