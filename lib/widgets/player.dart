@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:major_try/common.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
@@ -57,7 +58,9 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       // var file = await downloadFile(
       //     'http://0.0.0.0:5000/api?query=' + _sentence, "speech.wav");
       await _player.setAudioSource(AudioSource.uri(
-          Uri.parse('http://192.168.101.7:5000/api?query=' + _sentence)));
+          // Uri.parse('http://192.168.101.7:5000/api?query=' + _sentence)));
+          Uri.parse(
+              "https://unncdn.prixacdn.net/media/radio_audio/2022/09/22/Ajar_Amar_Geetharu_2022-09-22.mp3")));
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -102,6 +105,18 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                "Listen",
+                style: context.textTheme.headline1,
+                textAlign: TextAlign.justify,
+              ),
+              Text(
+                " the Sound !",
+                style: context.textTheme.headline2,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               // Display play/pause button and volume/speed sliders.
               ControlButtons(_player),
               // Display seek bar. Using StreamBuilder, this widget rebuilds

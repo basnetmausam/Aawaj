@@ -118,7 +118,12 @@ class _NounPageState extends State<NounPage> {
           widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
 
-        setState(() {});
+        // setState(() {});
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) =>
+                    VerbPage(tappedWords: widget.tappedWords))));
       },
       child: Card(
           // elevation: 10,

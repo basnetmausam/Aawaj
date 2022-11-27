@@ -116,7 +116,12 @@ class _VerbPageState extends State<VerbPage> {
           widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
 
-        setState(() {});
+        // setState(() {});
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => OutputPage(
+                    sentence: widget.tappedWords.text.substring(1)))));
       },
       child: Card(
           // elevation: 10,

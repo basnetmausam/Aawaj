@@ -115,7 +115,11 @@ class _PronounPageState extends State<PronounPage> {
           tappedWords.text = "${tappedWords.text} ${words.word}";
         }
 
-        setState(() {});
+        // setState(() {});
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => NounPage(tappedWords: tappedWords))));
       },
       child: Card(
           // elevation: 10,

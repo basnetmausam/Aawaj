@@ -84,6 +84,7 @@ class _TypePageState extends State<TypePage> {
                               hideKeyboard: false,
                               hideSuggestionsOnKeyboardHide: false,
                               textFieldConfiguration: TextFieldConfiguration(
+                                autocorrect: false,
                                 controller: controllerWord,
                                 autofocus: true,
                                 focusNode: myFocusNode,
@@ -112,6 +113,7 @@ class _TypePageState extends State<TypePage> {
                                 ),
                               ),
                               onSuggestionSelected: (String? suggestion) {
+                                // print(suggestion);
                                 var lis = controllerWord.text.split(' ');
 
                                 var nayaList =
@@ -136,7 +138,8 @@ class _TypePageState extends State<TypePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) => OutputPage(
-                                          sentence: controllerWord.text))));
+                                          sentence: controllerWord.text
+                                              .substring(1)))));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.purple),

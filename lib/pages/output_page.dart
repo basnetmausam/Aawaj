@@ -11,7 +11,7 @@ class OutputPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("This is Output Page"),
       ),
-      body: Center(child: MyPlayer(sentence)),
+      body: MyPlayer(sentence),
     );
   }
 }
