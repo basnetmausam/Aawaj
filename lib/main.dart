@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:major_try/data/words_data.dart';
 import 'package:major_try/pages/hands_on_mode/choose_option_page.dart';
+import 'package:major_try/pages/hands_on_mode/tap_page/common_phrase.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/pronoun_page.dart';
 import 'package:major_try/pages/home_page.dart';
 import 'package:major_try/pages/hands_on_mode/typing_mode/typing_page.dart';
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.handsRoute: (context) => const HandsOn(),
         MyRoutes.typeRoute: (context) => const TypePage(),
-        MyRoutes.pronounRoute: (context) => const PronounPage(),
+        MyRoutes.tapRoute: (context) => const PhrasePage(),
       },
       home: const HomePage(),
     );

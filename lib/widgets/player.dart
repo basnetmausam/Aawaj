@@ -11,6 +11,8 @@ import 'package:major_try/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../utils/routes.dart';
+
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
 
@@ -131,6 +133,19 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                     onChangeEnd: _player.seek,
                   );
                 },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.handsRoute);
+                },
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(190, 50),
+                    backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    textStyle: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold)),
+                child: const Text('Speak Again !'),
               ),
             ],
           ),

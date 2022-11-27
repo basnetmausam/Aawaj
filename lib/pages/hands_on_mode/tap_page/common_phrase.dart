@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
-import 'package:major_try/pages/output_page.dart';
+import 'package:major_try/pages/hands_on_mode/tap_page/noun_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
+import 'pronoun_page.dart';
 
-class NipatPage extends StatefulWidget {
-  final TextEditingController tappedWords;
-  const NipatPage({Key? key, required this.tappedWords}) : super(key: key);
+class PhrasePage extends StatefulWidget {
+  const PhrasePage({Key? key}) : super(key: key);
 
   @override
-  State<NipatPage> createState() => _NipatPageState();
+  State<PhrasePage> createState() => _PhrasePageState();
 }
 
-class _NipatPageState extends State<NipatPage> {
+class _PhrasePageState extends State<PhrasePage> {
   final tappedWords = TextEditingController();
 
-  List<Words> verb = NipatData().nipatList;
+  List<Words> common = CommonPhrase().commonPhrase;
   List<Words> matra = MatraData().matraList;
-  List<Words> list = NipatData().nipatList;
+  List<Words> list = CommonPhrase().commonPhrase;
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
@@ -42,20 +42,20 @@ class _NipatPageState extends State<NipatPage> {
               style: context.textTheme.headline1,
             ),
             Text(
-              " to genetate Text !",
+              " to generate Text !",
               style: context.textTheme.headline2,
             ),
             const SizedBox(
               height: 32,
             ),
             TextFormField(
-              controller: widget.tappedWords,
+              controller: tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'Tap Words'),
             ),
             const SizedBox(
-              height: 32,
+              height: 20,
             ),
             if (isMobile(context))
               Expanded(
@@ -63,13 +63,13 @@ class _NipatPageState extends State<NipatPage> {
                     child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, childAspectRatio: 3 / 2),
+                                crossAxisCount: 1, childAspectRatio: 9 / 2),
                         itemCount: list.length,
                         itemBuilder: (BuildContext context, int index) {
                           return AnimationConfiguration.staggeredGrid(
                               columnCount: 2,
                               position: index,
-                              duration: const Duration(milliseconds: 300),
+                              duration: const Duration(milliseconds: 500),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
                                       delay: const Duration(milliseconds: 100),
@@ -82,7 +82,7 @@ class _NipatPageState extends State<NipatPage> {
                     context,
                     MaterialPageRoute(
                         builder: ((context) =>
-                            OutputPage(sentence: widget.tappedWords.text))));
+                            PronounPage(tappedWords: tappedWords))));
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
@@ -91,7 +91,7 @@ class _NipatPageState extends State<NipatPage> {
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Speak !'),
+              child: const Text('Next !'),
             ),
           ],
         ),
@@ -105,23 +105,22 @@ class _NipatPageState extends State<NipatPage> {
       // onLongPress: (() {
       //   list = matra;
       //   setState(() {});
-      //   widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+      //   tappedWords.text = "${tappedWords.text} ${words.word}";
       // }),
       onTap: () {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
-          widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
-          list = verb;
+          tappedWords.text = "${tappedWords.text}${words.word}";
+          list = common;
         } else {
-          widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+          tappedWords.text = "${tappedWords.text} ${words.word}";
         }
 
         // setState(() {});
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) => OutputPage(
-                    sentence: widget.tappedWords.text.substring(1)))));
+                builder: ((context) => PronounPage(tappedWords: tappedWords))));
       },
       child: Card(
           // elevation: 10,

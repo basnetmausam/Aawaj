@@ -6,6 +6,7 @@ import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
+import '../../output_page.dart';
 import 'nipat_page.dart';
 
 class VerbPage extends StatefulWidget {
@@ -58,7 +59,7 @@ class _VerbPageState extends State<VerbPage> {
               ),
             ),
             const SizedBox(
-              height: 32,
+              height: 20,
             ),
             if (isMobile(context))
               Expanded(
@@ -79,23 +80,45 @@ class _VerbPageState extends State<VerbPage> {
                                       child: listItem(list[index]))));
                         })),
               ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) =>
-                            NipatPage(tappedWords: widget.tappedWords))));
-              },
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  textStyle: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Next !'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => OutputPage(
+                                sentence: widget.tappedWords.text))));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(190, 50),
+                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
+                      textStyle: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: const Text('Speak !'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) =>
+                                NipatPage(tappedWords: widget.tappedWords))));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(190, 50),
+                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
+                      textStyle: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: const Text('Next !'),
+                ),
+              ],
+            ).py8(),
           ],
         ),
       ),

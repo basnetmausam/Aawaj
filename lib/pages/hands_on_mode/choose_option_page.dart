@@ -76,7 +76,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.pronounRoute);
+                        Navigator.pushNamed(context, MyRoutes.tapRoute);
                       },
                       child: Container(
                         height: 173,
@@ -117,7 +117,7 @@ class HandsOn extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, MyRoutes.pronounRoute);
+                        Navigator.pushNamed(context, MyRoutes.tapRoute);
                       },
                       child: Container(
                         height: 250,

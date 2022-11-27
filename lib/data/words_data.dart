@@ -102,3 +102,16 @@ class NipatData {
 
   List<Words> get nipatList => _nipatList;
 }
+
+class CommonPhrase {
+  final List<Words> _commonPhrase = <Words>[
+    Words(word: 'hello namste k xa'),
+    Words(word: 'hello namste k xa'),
+    Words(word: 'hello namste k xa'),
+    Words(word: 'hello namste k xa'),
+    Words(word: 'hello namste k xa'),
+    Words(word: 'hello namste k xa'),
+  ];
+
+  List<Words> get commonPhrase => _commonPhrase;
+}

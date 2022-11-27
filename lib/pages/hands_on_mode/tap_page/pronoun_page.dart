@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
-import 'package:major_try/pages/hands_on_mode/tap_page/noun_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
+import '../../output_page.dart';
+import 'noun_page.dart';
 
 class PronounPage extends StatefulWidget {
-  const PronounPage({Key? key}) : super(key: key);
+  final TextEditingController tappedWords;
+  const PronounPage({
+    Key? key,
+    required this.tappedWords,
+  }) : super(key: key);
 
   @override
   State<PronounPage> createState() => _PronounPageState();
 }
 
 class _PronounPageState extends State<PronounPage> {
-  final tappedWords = TextEditingController();
-
   List<Words> pronoun = PronounData().pronounList;
   List<Words> matra = MatraData().matraList;
   List<Words> list = PronounData().pronounList;
@@ -41,20 +44,21 @@ class _PronounPageState extends State<PronounPage> {
               style: context.textTheme.headline1,
             ),
             Text(
-              " to generate Text !",
+              " to genetate Text !",
               style: context.textTheme.headline2,
             ),
             const SizedBox(
               height: 32,
             ),
             TextFormField(
-              controller: tappedWords,
+              controller: widget.tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Tap Words'),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(
-              height: 32,
+              height: 20,
             ),
             if (isMobile(context))
               Expanded(
@@ -68,30 +72,52 @@ class _PronounPageState extends State<PronounPage> {
                           return AnimationConfiguration.staggeredGrid(
                               columnCount: 2,
                               position: index,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 300),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
                                       delay: const Duration(milliseconds: 100),
                                       child: listItem(list[index]))));
                         })),
               ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) =>
-                            NounPage(tappedWords: tappedWords))));
-              },
-              style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  textStyle: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Next !'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => OutputPage(
+                                sentence: widget.tappedWords.text))));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(190, 50),
+                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
+                      textStyle: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: const Text('Speak !'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) =>
+                                NounPage(tappedWords: widget.tappedWords))));
+                  },
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(190, 50),
+                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 20),
+                      textStyle: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                  child: const Text('Next !'),
+                ),
+              ],
+            ).py8(),
           ],
         ),
       ),
@@ -104,22 +130,23 @@ class _PronounPageState extends State<PronounPage> {
       onLongPress: (() {
         list = matra;
         setState(() {});
-        tappedWords.text = "${tappedWords.text} ${words.word}";
+        widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
       }),
       onTap: () {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
-          tappedWords.text = "${tappedWords.text}${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
           list = pronoun;
         } else {
-          tappedWords.text = "${tappedWords.text} ${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
 
         // setState(() {});
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) => NounPage(tappedWords: tappedWords))));
+                builder: ((context) =>
+                    NounPage(tappedWords: widget.tappedWords))));
       },
       child: Card(
           // elevation: 10,
