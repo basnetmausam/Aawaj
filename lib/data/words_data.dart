@@ -81,3 +81,20 @@ class MatraData {
 
   List<Words> get matraList => _matraList;
 }
+
+class NipatData {
+  final List<Words> _nipatList = <Words>[
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+    Words(word: 'nipat'),
+  ];
+
+  List<Words> get nipatList => _nipatList;
+}

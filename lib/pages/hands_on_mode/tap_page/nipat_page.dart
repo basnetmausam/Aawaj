@@ -2,26 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
-import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
+import 'package:major_try/pages/output_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
 
-class NounPage extends StatefulWidget {
+class NipatPage extends StatefulWidget {
   final TextEditingController tappedWords;
-  const NounPage({
-    Key? key,
-    required this.tappedWords,
-  }) : super(key: key);
+  const NipatPage({Key? key, required this.tappedWords}) : super(key: key);
 
   @override
-  State<NounPage> createState() => _NounPageState();
+  State<NipatPage> createState() => _NipatPageState();
 }
 
-class _NounPageState extends State<NounPage> {
-  List<Words> noun = NounData().nounList;
+class _NipatPageState extends State<NipatPage> {
+  final tappedWords = TextEditingController();
+
+  List<Words> verb = NipatData().nipatList;
   List<Words> matra = MatraData().matraList;
-  List<Words> list = NounData().nounList;
+  List<Words> list = NipatData().nipatList;
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
@@ -53,8 +52,7 @@ class _NounPageState extends State<NounPage> {
               controller: widget.tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-              ),
+                  border: OutlineInputBorder(), hintText: 'Tap Words'),
             ),
             const SizedBox(
               height: 32,
@@ -84,7 +82,7 @@ class _NounPageState extends State<NounPage> {
                     context,
                     MaterialPageRoute(
                         builder: ((context) =>
-                            VerbPage(tappedWords: widget.tappedWords))));
+                            OutputPage(sentence: widget.tappedWords.text))));
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
@@ -93,7 +91,7 @@ class _NounPageState extends State<NounPage> {
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
                   textStyle: const TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Next !'),
+              child: const Text('Speak !'),
             ),
           ],
         ),
@@ -113,7 +111,7 @@ class _NounPageState extends State<NounPage> {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
           widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
-          list = noun;
+          list = verb;
         } else {
           widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
@@ -122,8 +120,8 @@ class _NounPageState extends State<NounPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) =>
-                    VerbPage(tappedWords: widget.tappedWords))));
+                builder: ((context) => OutputPage(
+                    sentence: widget.tappedWords.text.substring(1)))));
       },
       child: Card(
           // elevation: 10,
