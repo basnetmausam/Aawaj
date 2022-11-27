@@ -41,7 +41,7 @@ class _PronounPageState extends State<PronounPage> {
               style: context.textTheme.headline1,
             ),
             Text(
-              " to genetate Text !",
+              " to generate Text !",
               style: context.textTheme.headline2,
             ),
             const SizedBox(

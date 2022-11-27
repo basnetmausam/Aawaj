@@ -12,17 +12,13 @@ class PronounData {
     Words(word: 'उनी'),
     Words(word: 'उहाँ'),
     Words(word: 'तिनी'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
+    Words(word: 'राम'),
+    Words(word: 'सिता'),
+    Words(word: 'सम्पन्न'),
+    Words(word: 'समिर'),
+    Words(word: 'निशा'),
+    Words(word: 'सुकृती'),
+    Words(word: 'प्रकृती')
   ];
 
   List<Words> get pronounList => _pronounList;
@@ -45,12 +41,8 @@ class NounData {
     Words(word: 'कोठा'),
     Words(word: 'कता'),
     Words(word: 'किन'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
-    Words(word: 'म'),
+    Words(word: 'कलेज'),
+    Words(word: 'पसल')
   ];
 
   List<Words> get nounList => _nounList;
@@ -68,12 +60,7 @@ class VerbData {
     Words(word: 'चलाउनु'),
     Words(word: 'पियुनु'),
     Words(word: 'सुत्नु'),
-    Words(word: 'लाग्नु'),
-    Words(word: 'verb'),
-    Words(word: 'verb'),
-    Words(word: 'verb'),
-    Words(word: 'verb'),
-    Words(word: 'verb'),
+    Words(word: 'लाग्नु')
   ];
 
   List<Words> get verbList => _verbList;
@@ -85,12 +72,11 @@ class MatraData {
     Words(word: 'रो'),
     Words(word: 'री'),
     Words(word: 'को'),
+    Words(word: 'की'),
     Words(word: 'हरु'),
-    Words(word: 'aau'),
-    Words(word: 'uu'),
-    Words(word: 'ki'),
-    Words(word: 'kau'),
-    Words(word: 'kaha'),
+    Words(word: 'द्वरा'),
+    Words(word: 'बाट'),
+    Words(word: 'सँग'),
   ];
 
   List<Words> get matraList => _matraList;
