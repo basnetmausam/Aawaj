@@ -2,27 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
+import 'package:major_try/pages/output_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
 
-class GridViewPage extends StatefulWidget {
-  const GridViewPage({Key? key}) : super(key: key);
+class NipatPage extends StatefulWidget {
+  final TextEditingController tappedWords;
+  const NipatPage({Key? key, required this.tappedWords}) : super(key: key);
 
   @override
-  State<GridViewPage> createState() => _GridViewPageState();
+  State<NipatPage> createState() => _NipatPageState();
 }
 
-class _GridViewPageState extends State<GridViewPage> {
+class _NipatPageState extends State<NipatPage> {
   final tappedWords = TextEditingController();
-  List<Words> list = PronounData().pronounList;
-  List<Words> noun = NounData().nounList;
-  List<Words> verb = VerbData().verbList;
-  List<Words> matra = MatraData().matraList;
-  int count = 0;
 
-  bool isTablet(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 600;
+  List<Words> verb = NipatData().nipatList;
+  List<Words> matra = MatraData().matraList;
+  List<Words> list = NipatData().nipatList;
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
@@ -51,7 +49,7 @@ class _GridViewPageState extends State<GridViewPage> {
               height: 32,
             ),
             TextFormField(
-              controller: tappedWords,
+              controller: widget.tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(), hintText: 'Tap Words'),
@@ -78,36 +76,23 @@ class _GridViewPageState extends State<GridViewPage> {
                                       child: listItem(list[index]))));
                         })),
               ),
-            if (isTablet(context))
-              Expanded(
-                child: AnimationLimiter(
-                    child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 6, childAspectRatio: 3 / 2),
-                        itemCount: list.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return AnimationConfiguration.staggeredGrid(
-                              columnCount: 2,
-                              position: index,
-                              duration: const Duration(milliseconds: 1000),
-                              child: ScaleAnimation(
-                                  child: FadeInAnimation(
-                                      delay: const Duration(milliseconds: 50),
-                                      child: listItem(list[index]))));
-                        })),
-              ),
-            // ElevatedButton(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(
-            //       minimumSize: const Size(double.infinity, 50),
-            //       primary: Colors.purple,
-            //       padding:
-            //           const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            //       textStyle: const TextStyle(
-            //           fontSize: 22, fontWeight: FontWeight.bold)),
-            //   child: const Text('Next !'),
-            // ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: ((context) =>
+                            OutputPage(sentence: widget.tappedWords.text))));
+              },
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 50),
+                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                  textStyle: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold)),
+              child: const Text('Speak !'),
+            ),
           ],
         ),
       ),
@@ -117,30 +102,26 @@ class _GridViewPageState extends State<GridViewPage> {
   Widget listItem(Words words) {
     return InkWell(
       splashColor: Colors.blue.withAlpha(30),
-      onLongPress: (() {
-        list = matra;
-        setState(() {});
-        tappedWords.text = "${tappedWords.text} ${words.word}";
-      }),
+      // onLongPress: (() {
+      //   list = matra;
+      //   setState(() {});
+      //   widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+      // }),
       onTap: () {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
-          tappedWords.text = "${tappedWords.text}${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
+          list = verb;
         } else {
-          tappedWords.text = "${tappedWords.text} ${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
-        count += 1;
-        switch (count) {
-          case 1:
-            list = noun;
-            break;
-          case 2:
-            list = verb;
-            break;
-          // case 3: new page.
-          default:
-        }
-        setState(() {});
+
+        // setState(() {});
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: ((context) => OutputPage(
+        //             sentence: widget.tappedWords.text.substring(1)))));
       },
       child: Card(
           // elevation: 10,
