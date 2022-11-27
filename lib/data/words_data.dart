@@ -3,22 +3,23 @@ import 'package:major_try/model/words.dart';
 class PronounData {
   final List<Words> _pronounList = <Words>[
     Words(word: 'म'),
+    Words(word: 'मेरो'),
     Words(word: 'हामी'),
+    Words(word: 'हाम्रो'),
     Words(word: 'तँ'),
+    Words(word: 'तेरो'),
     Words(word: 'तिमी'),
+    Words(word: 'तिम्रो'),
     Words(word: 'तपाईँ'),
-    Words(word: ' हजुर'),
+    Words(word: 'हजुर'),
     Words(word: 'ऊ'),
+    Words(word: 'उस्को'),
     Words(word: 'उनी'),
     Words(word: 'उहाँ'),
-    Words(word: 'तिनी'),
     Words(word: 'राम'),
     Words(word: 'सिता'),
     Words(word: 'सम्पन्न'),
-    Words(word: 'समिर'),
     Words(word: 'निशा'),
-    Words(word: 'सुकृती'),
-    Words(word: 'प्रकृती')
   ];
 
   List<Words> get pronounList => _pronounList;
@@ -51,16 +52,23 @@ class NounData {
 class VerbData {
   final List<Words> _verbList = <Words>[
     Words(word: 'खानु'),
+    Words(word: 'खान्छु'),
+    Words(word: 'खानेछु'),
     Words(word: 'जानु'),
+    Words(word: 'जान्छु'),
+    Words(word: 'जानेछु'),
     Words(word: 'लानु'),
+    Words(word: 'लान्छु'),
+    Words(word: 'लानेछु'),
     Words(word: 'धुनु'),
+    Words(word: 'धुन्छु'),
+    Words(word: 'धुनेछु'),
     Words(word: 'पढ्नु'),
+    Words(word: 'पढ्छु'),
+    Words(word: 'पढ्नेछु'),
     Words(word: 'गर्नु'),
-    Words(word: 'लेख्नु'),
-    Words(word: 'चलाउनु'),
-    Words(word: 'पियुनु'),
-    Words(word: 'सुत्नु'),
-    Words(word: 'लाग्नु')
+    Words(word: 'गर्छु'),
+    Words(word: 'गर्नेछु'),
   ];
 
   List<Words> get verbList => _verbList;
@@ -84,16 +92,12 @@ class MatraData {
 
 class NipatData {
   final List<Words> _nipatList = <Words>[
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
-    Words(word: 'nipat'),
+    Words(word: 'हो'),
+    Words(word: 'छ'),
+    Words(word: 'नि'),
+    Words(word: 'पो'),
+    Words(word: 'त'),
+    Words(word: 'है'),
   ];
 
   List<Words> get nipatList => _nipatList;
