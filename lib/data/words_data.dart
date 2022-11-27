@@ -105,12 +105,10 @@ class NipatData {
 
 class CommonPhrase {
   final List<Words> _commonPhrase = <Words>[
-    Words(word: 'hello namste k xa'),
-    Words(word: 'hello namste k xa'),
-    Words(word: 'hello namste k xa'),
-    Words(word: 'hello namste k xa'),
-    Words(word: 'hello namste k xa'),
-    Words(word: 'hello namste k xa'),
+    Words(word: 'नमस्ते'),
+    Words(word: 'के छ हाल खबर?'),
+    Words(word: 'सन्चै छौ?'),
+    Words(word: 'मेरो नाम सम्पन्न हो'),
   ];
 
   List<Words> get commonPhrase => _commonPhrase;

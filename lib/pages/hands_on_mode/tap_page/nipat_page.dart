@@ -117,11 +117,11 @@ class _NipatPageState extends State<NipatPage> {
         }
 
         // setState(() {});
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) => OutputPage(
-                    sentence: widget.tappedWords.text.substring(1)))));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: ((context) => OutputPage(
+        //             sentence: widget.tappedWords.text.substring(1)))));
       },
       child: Card(
           // elevation: 10,

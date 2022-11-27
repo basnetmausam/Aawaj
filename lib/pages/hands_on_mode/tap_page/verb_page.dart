@@ -92,7 +92,7 @@ class _VerbPageState extends State<VerbPage> {
                                 sentence: widget.tappedWords.text))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(190, 50),
+                      minimumSize: const Size(150, 50),
                       backgroundColor: const Color.fromARGB(255, 89, 21, 101),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),
@@ -109,7 +109,7 @@ class _VerbPageState extends State<VerbPage> {
                                 NipatPage(tappedWords: widget.tappedWords))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(190, 50),
+                      minimumSize: const Size(150, 50),
                       backgroundColor: const Color.fromARGB(255, 89, 21, 101),
                       padding: const EdgeInsets.symmetric(
                           horizontal: 50, vertical: 20),
