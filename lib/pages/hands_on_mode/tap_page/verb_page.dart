@@ -2,23 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
-import 'package:major_try/pages/output_page.dart';
+import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
+import 'nipat_page.dart';
 
 class VerbPage extends StatefulWidget {
   final TextEditingController tappedWords;
-  const VerbPage({Key? key, required this.tappedWords}) : super(key: key);
+  const VerbPage({
+    Key? key,
+    required this.tappedWords,
+  }) : super(key: key);
 
   @override
   State<VerbPage> createState() => _VerbPageState();
 }
 
 class _VerbPageState extends State<VerbPage> {
-  final tappedWords = TextEditingController();
-
-  List<Words> verb = VerbData().verbList;
+  List<Words> noun = VerbData().verbList;
   List<Words> matra = MatraData().matraList;
   List<Words> list = VerbData().verbList;
 
@@ -52,7 +54,8 @@ class _VerbPageState extends State<VerbPage> {
               controller: widget.tappedWords,
               keyboardType: TextInputType.text,
               decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Tap Words'),
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(
               height: 32,
@@ -69,7 +72,7 @@ class _VerbPageState extends State<VerbPage> {
                           return AnimationConfiguration.staggeredGrid(
                               columnCount: 2,
                               position: index,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 300),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
                                       delay: const Duration(milliseconds: 100),
@@ -82,7 +85,7 @@ class _VerbPageState extends State<VerbPage> {
                     context,
                     MaterialPageRoute(
                         builder: ((context) =>
-                            OutputPage(sentence: widget.tappedWords.text))));
+                            NipatPage(tappedWords: widget.tappedWords))));
               },
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
@@ -111,7 +114,7 @@ class _VerbPageState extends State<VerbPage> {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
           widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
-          list = verb;
+          list = noun;
         } else {
           widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
         }
@@ -120,8 +123,8 @@ class _VerbPageState extends State<VerbPage> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: ((context) => OutputPage(
-                    sentence: widget.tappedWords.text.substring(1)))));
+                builder: ((context) =>
+                    NipatPage(tappedWords: widget.tappedWords))));
       },
       child: Card(
           // elevation: 10,

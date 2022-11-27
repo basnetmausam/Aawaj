@@ -71,7 +71,7 @@ class _GridViewPageState extends State<GridViewPage> {
                           return AnimationConfiguration.staggeredGrid(
                               columnCount: 2,
                               position: index,
-                              duration: const Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 300),
                               child: ScaleAnimation(
                                   child: FadeInAnimation(
                                       delay: const Duration(milliseconds: 100),

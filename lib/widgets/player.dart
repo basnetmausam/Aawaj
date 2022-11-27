@@ -58,9 +58,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
       // var file = await downloadFile(
       //     'http://0.0.0.0:5000/api?query=' + _sentence, "speech.wav");
       await _player.setAudioSource(AudioSource.uri(
-          // Uri.parse('http://192.168.101.7:5000/api?query=' + _sentence)));
-          Uri.parse(
-              "https://unncdn.prixacdn.net/media/radio_audio/2022/09/22/Ajar_Amar_Geetharu_2022-09-22.mp3")));
+          Uri.parse('http://192.168.1.218:5000/api?query=' + _sentence)));
     } catch (e) {
       print("Error loading audio source: $e");
     }
