@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Visibility(
                   visible: !headphonesAnimated,
                   child: Lottie.asset(
-                    'assets/audio_wave.json',
+                    'assets/aawaj_splash.json',
                     controller: _headphonesController,
                     onLoaded: (composition) {
                       _headphonesController
