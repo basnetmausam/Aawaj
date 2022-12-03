@@ -15,21 +15,21 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-  late AnimationController _headphonesController;
-  bool headphonesAnimated = false;
-  bool animateHeadphoneText = false;
+  late AnimationController _waveController;
+  bool waveAnimated = false;
+  bool animateWaveText = false;
 
   @override
   void initState() {
     super.initState();
-    _headphonesController = AnimationController(vsync: this);
-    _headphonesController.addListener(() {
-      if (_headphonesController.value > 0.7) {
-        _headphonesController.stop();
-        headphonesAnimated = true;
+    _waveController = AnimationController(vsync: this);
+    _waveController.addListener(() {
+      if (_waveController.value > 0.7) {
+        _waveController.stop();
+        waveAnimated = true;
         setState(() {});
         Future.delayed(const Duration(seconds: 1), () {
-          animateHeadphoneText = true;
+          animateWaveText = true;
           setState(() {});
         });
       }
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void dispose() {
     super.dispose();
-    _headphonesController.dispose();
+    _waveController.dispose();
   }
 
   @override
@@ -52,39 +52,38 @@ class _SplashScreenState extends State<SplashScreen>
           // White Container top half
           AnimatedContainer(
             duration: const Duration(seconds: 1),
-            height: headphonesAnimated ? screenHeight / 1.9 : screenHeight,
+            height: waveAnimated ? screenHeight / 1.9 : screenHeight,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius:
-                  BorderRadius.circular(headphonesAnimated ? 40.0 : 0.0),
+              borderRadius: BorderRadius.circular(waveAnimated ? 40.0 : 0.0),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Visibility(
-                  visible: !headphonesAnimated,
+                  visible: !waveAnimated,
                   child: Lottie.asset(
-                    'assets/audio_wave.json',
-                    controller: _headphonesController,
+                    'assets/aawaj_splash.json',
+                    controller: _waveController,
                     onLoaded: (composition) {
-                      _headphonesController
+                      _waveController
                         ..duration = composition.duration
                         ..forward();
                     },
                   ),
                 ),
                 Visibility(
-                  visible: headphonesAnimated,
+                  visible: waveAnimated,
                   child: Image.asset(
-                    'assets/logos/logo-transparent.png',
+                    'assets/logos/aawaj_logo.png',
                     height: 190.0,
                     width: 190.0,
                   ),
                 ),
                 Center(
                   child: AnimatedOpacity(
-                    opacity: animateHeadphoneText ? 1 : 0,
+                    opacity: animateWaveText ? 1 : 0,
                     duration: const Duration(seconds: 1),
                     child: Text(
                       "Aawaj",
@@ -98,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
 
           // Text bottom part
-          Visibility(visible: headphonesAnimated, child: const _BottomPart()),
+          Visibility(visible: waveAnimated, child: const _BottomPart()),
         ],
       ),
     );
@@ -118,13 +117,13 @@ class _BottomPart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Emotions that best please you',
+              'Aawaj: A voice for the voiceless',
               style: GoogleFonts.montserrat(
                   fontSize: 27, color: white, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30.0),
             Text(
-              'Top of the line music recommendation with Music Emotion Recognition (MER) technology.',
+              'Nepali Text-to-Speech (TTS) service with augmentative communication support',
               style: GoogleFonts.montserrat(
                 fontSize: 15.0,
                 color: white,
@@ -148,10 +147,10 @@ class _BottomPart extends StatelessWidget {
                   ),
                   alignment: Alignment.centerRight,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Open Application",
+                        "Open Aawaj",
                         style: GoogleFonts.montserrat(
                           fontSize: 15.0,
                           color: white,
