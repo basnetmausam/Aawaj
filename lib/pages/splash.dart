@@ -65,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Visibility(
                   visible: !headphonesAnimated,
                   child: Lottie.asset(
-                    'assets/audio_wave.json',
+                    'assets/aawaj_splash.json',
                     controller: _headphonesController,
                     onLoaded: (composition) {
                       _headphonesController
@@ -77,7 +77,7 @@ class _SplashScreenState extends State<SplashScreen>
                 Visibility(
                   visible: headphonesAnimated,
                   child: Image.asset(
-                    'assets/logos/logo-transparent.png',
+                    'assets/logos/aawaj_logo.png',
                     height: 190.0,
                     width: 190.0,
                   ),
@@ -118,13 +118,13 @@ class _BottomPart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Emotions that best please you',
+              'Aawaj: A voice for the voiceless',
               style: GoogleFonts.montserrat(
                   fontSize: 27, color: white, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30.0),
             Text(
-              'Top of the line music recommendation with Music Emotion Recognition (MER) technology.',
+              'Nepali Text-to-Speech (TTS) service with augmentative communication support',
               style: GoogleFonts.montserrat(
                 fontSize: 15.0,
                 color: white,
@@ -148,10 +148,10 @@ class _BottomPart extends StatelessWidget {
                   ),
                   alignment: Alignment.centerRight,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Open Application",
+                        "Open Aawaj",
                         style: GoogleFonts.montserrat(
                           fontSize: 15.0,
                           color: white,
