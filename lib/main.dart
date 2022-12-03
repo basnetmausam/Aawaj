@@ -1,21 +1,17 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:major_try/data/words_data.dart';
+import 'package:major_try/init.dart';
 import 'package:major_try/pages/hands_on_mode/choose_option_page.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/common_phrase.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/pronoun_page.dart';
 import 'package:major_try/pages/home_page.dart';
 import 'package:major_try/pages/hands_on_mode/typing_mode/typing_page.dart';
+import 'package:major_try/pages/splash.dart';
 import 'package:major_try/themes.dart';
 import 'package:major_try/utils/routes.dart';
 
-import 'firebase_options.dart';
-
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  initialize();
   runApp(const MyApp());
 }
 
@@ -32,12 +28,13 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routes: {
+        MyRoutes.splashRoute: (context) => const SplashScreen(),
         MyRoutes.homeRoute: (context) => const HomePage(),
         MyRoutes.handsRoute: (context) => const HandsOn(),
         MyRoutes.typeRoute: (context) => const TypePage(),
         MyRoutes.tapRoute: (context) => const PhrasePage(),
       },
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }

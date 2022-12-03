@@ -10,14 +10,15 @@ import 'package:just_audio/just_audio.dart';
 import 'package:major_try/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:http/http.dart' as http;
 import '../utils/routes.dart';
+import 'package:major_try/data/globals.dart' as globals;
 
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
 
   MyPlayer(String sentence) {
-    this._sentence = sentence;
+    this._sentence = sentence.trim();
   }
 
   @override
@@ -56,11 +57,10 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 
     // Try to load audio from a source and catch any errors.
     try {
-      // await _player.setAsset("assets/music/" + _path);
-      // var file = await downloadFile(
-      //     'http://0.0.0.0:5000/api?query=' + _sentence, "speech.wav");
-      await _player.setAudioSource(AudioSource.uri(
-          Uri.parse('http://192.168.101.7:5000/api?query=' + _sentence)));
+      print(globals.url);
+      //bypassing the ngrok warning with header
+      await _player.setAudioSource(
+          AudioSource.uri(Uri.parse(globals.url + '/api?query=' + _sentence)));
     } catch (e) {
       print("Error loading audio source: $e");
     }

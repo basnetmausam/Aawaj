@@ -1,4 +1,5 @@
 class MyRoutes {
+  static String splashRoute = "/splash";
   static String homeRoute = "/home";
   static String handsRoute = "/hands_on";
   static String typeRoute = "/type";
