@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Hamro Aawaj',
+      title: 'Aawaj',
       theme: MyThemes.lightTheme(context),
       darkTheme: MyThemes.darkTheme(context),
       themeMode: ThemeMode.light,

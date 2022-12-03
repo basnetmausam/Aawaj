@@ -65,6 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
                   visible: !waveAnimated,
                   child: Lottie.asset(
                     'assets/aawaj_splash.json',
+                    repeat: false,
                     controller: _waveController,
                     onLoaded: (composition) {
                       _waveController
