@@ -38,11 +38,18 @@ dependencies:
   easy_audio_player: ^0.0.1
   transliteration: ^0.0.6
   lottie: ^2.0.0
+  
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.11.0
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logos/aawaj_logo.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

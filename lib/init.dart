@@ -20,7 +20,6 @@ void initialize() async {
     }); //fetch URL of ngrok
     final body = json.decode(response.body);
     globals.url = body["endpoints"][0]["public_url"];
-    print(globals.url);
     final _ = await http.get(Uri.parse(globals.url), headers: {
       'ngrok-skip-browser-warning': '1234'
     }); // // Send authorization headers to the backend and skip warning.

@@ -57,7 +57,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 
     // Try to load audio from a source and catch any errors.
     try {
-      print(globals.url);
       //bypassing the ngrok warning with header
       await _player.setAudioSource(
           AudioSource.uri(Uri.parse(globals.url + '/api?query=' + _sentence)));

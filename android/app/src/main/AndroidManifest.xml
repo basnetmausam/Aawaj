@@ -2,7 +2,7 @@
     package="com.example.major_try">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="major_try"
+        android:label="Aawaj"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true"
