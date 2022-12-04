@@ -138,8 +138,7 @@ class _TypePageState extends State<TypePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: ((context) => OutputPage(
-                                          sentence: controllerWord.text
-                                              .substring(1)))));
+                                          sentence: controllerWord.text))));
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.purple),
