@@ -2,12 +2,11 @@
 // More advanced examples demonstrating other features can be found in the same
 // directory as this example in the GitHub repository.
 
-import 'package:major_try/utils/downloadFile.dart';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:major_try/common.dart';
+import 'package:major_try/widgets/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:http/http.dart' as http;

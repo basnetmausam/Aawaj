@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:major_try/data/words_data.dart';
-import 'package:major_try/init.dart';
+import 'package:major_try/widgets/init.dart';
 import 'package:major_try/pages/hands_on_mode/choose_option_page.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/common_phrase.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/pronoun_page.dart';
 import 'package:major_try/pages/home_page.dart';
 import 'package:major_try/pages/hands_on_mode/typing_mode/typing_page.dart';
 import 'package:major_try/pages/splash.dart';
-import 'package:major_try/themes.dart';
+import 'package:major_try/utils/themes.dart';
 import 'package:major_try/utils/routes.dart';
 
 Future<void> main() async {
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Aawaj',
       theme: MyThemes.lightTheme(context),
       darkTheme: MyThemes.darkTheme(context),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       routes: {
         MyRoutes.splashRoute: (context) => const SplashScreen(),
