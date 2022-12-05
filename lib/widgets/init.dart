@@ -1,4 +1,4 @@
-import 'firebase_options.dart';
+import '../firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
