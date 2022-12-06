@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:major_try/data/words_data.dart';
 import 'package:major_try/widgets/init.dart';
 import 'package:major_try/pages/hands_on_mode/choose_option_page.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/common_phrase.dart';
-import 'package:major_try/pages/hands_on_mode/tap_page/pronoun_page.dart';
 import 'package:major_try/pages/home_page.dart';
 import 'package:major_try/pages/hands_on_mode/typing_mode/typing_page.dart';
 import 'package:major_try/pages/splash.dart';
