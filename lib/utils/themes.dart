@@ -20,6 +20,15 @@ class MyThemes {
               fontFamily: GoogleFonts.quicksand().fontFamily,
               fontSize: 32,
               fontWeight: FontWeight.bold),
+          headline3: TextStyle(
+              fontFamily: GoogleFonts.quicksand().fontFamily,
+              fontSize: 30,
+              fontWeight: FontWeight.bold),
+          headline4: TextStyle(
+              fontFamily: GoogleFonts.quicksand().fontFamily,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
           bodyText1: TextStyle(
             fontSize: 20,
             fontFamily: GoogleFonts.poppins().fontFamily,
