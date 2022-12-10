@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
+import 'package:major_try/widgets/heading_text.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
@@ -29,26 +30,20 @@ class _PronounPageState extends State<PronounPage> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap-Tap Go!"),
+        title: const Text("Tap Words to generate text"),
         actions: [const Icon(Icons.add_box).px24()],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              "Tap Words",
-              style: context.textTheme.headline1,
-            ),
-            Text(
-              " to genetate Text !",
-              style: context.textTheme.headline2,
-            ),
-            const SizedBox(
-              height: 32,
+            SizedBox(
+              height: height / 32,
             ),
             TextFormField(
               controller: widget.tappedWords,
@@ -58,27 +53,26 @@ class _PronounPageState extends State<PronounPage> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 16,
             ),
-            if (isMobile(context))
-              Expanded(
-                child: AnimationLimiter(
-                    child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3, childAspectRatio: 3 / 2),
-                        itemCount: list.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return AnimationConfiguration.staggeredGrid(
-                              columnCount: 2,
-                              position: index,
-                              duration: const Duration(milliseconds: 300),
-                              child: ScaleAnimation(
-                                  child: FadeInAnimation(
-                                      delay: const Duration(milliseconds: 100),
-                                      child: listItem(list[index]))));
-                        })),
-              ),
+            Expanded(
+              child: AnimationLimiter(
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3, childAspectRatio: 3 / 2),
+                      itemCount: list.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return AnimationConfiguration.staggeredGrid(
+                            columnCount: 2,
+                            position: index,
+                            duration: const Duration(milliseconds: 300),
+                            child: ScaleAnimation(
+                                child: FadeInAnimation(
+                                    delay: const Duration(milliseconds: 100),
+                                    child: listItem(list[index]))));
+                      })),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:major_try/widgets/option_box.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'heading_text.dart';
+
 class ChoosePage extends StatelessWidget {
   const ChoosePage({
     Key? key,
@@ -30,31 +32,19 @@ class ChoosePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           height: height / 4,
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              firstText,
-              style: context.textTheme.headline1,
-              textAlign: TextAlign.justify,
-            ),
-            Text(
-              secondText,
-              style: context.textTheme.headline2,
-            ),
-            SizedBox(
-              height: height / 20,
-            ),
-          ],
-        ).px32(),
+        HeadingText(firstText: firstText, secondText: secondText),
+        SizedBox(
+          height: height / 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
