@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Aawaj',
       theme: MyThemes.lightTheme(context),
       darkTheme: MyThemes.darkTheme(context),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       routes: {
         MyRoutes.splashRoute: (context) => const SplashScreen(),
