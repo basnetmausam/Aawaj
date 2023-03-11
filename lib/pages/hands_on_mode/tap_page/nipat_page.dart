@@ -42,8 +42,12 @@ class _NipatPageState extends State<NipatPage> {
             TextFormField(
               controller: widget.tappedWords,
               keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Tap Words'),
+              style: TextStyle(color: context.primaryColor),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: context.primaryColor),
+                ),
+              ),
             ),
             SizedBox(
               height: height / 32,

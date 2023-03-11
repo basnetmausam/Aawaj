@@ -43,9 +43,12 @@ class _NounPageState extends State<NounPage> {
             ),
             TextFormField(
               controller: widget.tappedWords,
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
+              keyboardType: TextInputType.none,
+              style: TextStyle(color: context.primaryColor),
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: context.primaryColor),
+                ),
               ),
             ),
             SizedBox(

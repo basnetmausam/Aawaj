@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:major_try/model/words.dart';
-import 'package:major_try/pages/hands_on_mode/tap_page/noun_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
@@ -36,27 +35,23 @@ class _PhrasePageState extends State<PhrasePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Text(
-            //   "Tap Words",
-            //   style: context.textTheme.headline1,
-            // ),
-            // Text(
-            //   " to generate Text !",
-            //   style: context.textTheme.headline2,
-            // ),
             SizedBox(
               height: height / 32,
             ),
             TextFormField(
               controller: tappedWords,
-              keyboardType: TextInputType.text,
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(), hintText: 'Tap Words'),
+              keyboardType: TextInputType.none,
+              style: TextStyle(color: context.primaryColor),
+              decoration: InputDecoration(
+                hintText: 'Tap Words',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: context.primaryColor),
+                ),
+              ),
             ),
             SizedBox(
               height: height / 32,
             ),
-
             Expanded(
               child: AnimationLimiter(
                   child: GridView.builder(

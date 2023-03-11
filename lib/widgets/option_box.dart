@@ -38,12 +38,10 @@ class OptionBox extends StatelessWidget {
         SizedBox(
           height: height / 46.6,
         ),
-        Text(text1,
-            style: context.textTheme.headline3
-                ?.copyWith(color: context.cardColor)),
+        Text(text1, style: context.textTheme.displaySmall),
         Text(
           text2,
-          style: context.textTheme.headline4,
+          style: context.textTheme.headlineMedium,
         ),
       ],
     );
