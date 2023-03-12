@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:major_try/model/words.dart';
 import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -20,9 +19,9 @@ class NounPage extends StatefulWidget {
 }
 
 class _NounPageState extends State<NounPage> {
-  List<Words> noun = NounData().nounList;
-  List<Words> matra = MatraData().matraList;
-  List<Words> list = NounData().nounList;
+  List<String> noun = nounList;
+  List<String> matra = matraList;
+  List<String> list = nounList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,7 @@ class _NounPageState extends State<NounPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap words to generate text"),
-        actions: [const Icon(Icons.add_box).px24()],
+        title: const Text("Tap-Tap Go!"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -117,21 +115,21 @@ class _NounPageState extends State<NounPage> {
     );
   }
 
-  Widget listItem(Words words) {
+  Widget listItem(String word) {
     return InkWell(
       splashColor: Colors.blue.withAlpha(30),
       onLongPress: (() {
         list = matra;
         setState(() {});
-        widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+        widget.tappedWords.text = "${widget.tappedWords.text} $word";
       }),
       onTap: () {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
-          widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text}$word";
           list = noun;
         } else {
-          widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text} $word";
         }
 
         // setState(() {});
@@ -147,7 +145,7 @@ class _NounPageState extends State<NounPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Center(
             child: Text(
-              words.word,
+              word,
               style: TextStyle(
                   fontFamily: GoogleFonts.poppins().fontFamily,
                   fontSize: 25,

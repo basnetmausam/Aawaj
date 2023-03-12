@@ -1,5 +1,3 @@
-import '../firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:major_try/data/globals.dart' as globals;
@@ -7,9 +5,7 @@ import 'package:flutter/material.dart';
 
 void initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   // fetching ngrok web URL and sending skip warning page header initially
   try {
     final response =

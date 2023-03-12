@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:major_try/model/words.dart';
-import 'package:major_try/widgets/heading_text.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../data/words_data.dart';
@@ -21,9 +19,9 @@ class PronounPage extends StatefulWidget {
 }
 
 class _PronounPageState extends State<PronounPage> {
-  List<Words> pronoun = PronounData().pronounList;
-  List<Words> matra = MatraData().matraList;
-  List<Words> list = PronounData().pronounList;
+  List<String> pronoun = pronounList;
+  List<String> matra = matraList;
+  List<String> list = pronounList;
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
@@ -34,8 +32,7 @@ class _PronounPageState extends State<PronounPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap Words to generate text"),
-        actions: [const Icon(Icons.add_box).px24()],
+        title: const Text("Tap-Tap Go!"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -121,21 +118,21 @@ class _PronounPageState extends State<PronounPage> {
     );
   }
 
-  Widget listItem(Words words) {
+  Widget listItem(String word) {
     return InkWell(
       splashColor: Colors.blue.withAlpha(30),
       onLongPress: (() {
         list = matra;
         setState(() {});
-        widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+        widget.tappedWords.text = "${widget.tappedWords.text} $word";
       }),
       onTap: () {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
-          widget.tappedWords.text = "${widget.tappedWords.text}${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text}$word";
           list = pronoun;
         } else {
-          widget.tappedWords.text = "${widget.tappedWords.text} ${words.word}";
+          widget.tappedWords.text = "${widget.tappedWords.text} $word";
         }
 
         // setState(() {});
@@ -151,7 +148,7 @@ class _PronounPageState extends State<PronounPage> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: Center(
             child: Text(
-              words.word,
+              word,
               style: TextStyle(
                   fontFamily: GoogleFonts.poppins().fontFamily,
                   fontSize: 25,
