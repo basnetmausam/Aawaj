@@ -2,6 +2,8 @@
 // More advanced examples demonstrating other features can be found in the same
 // directory as this example in the GitHub repository.
 
+// ignore_for_file: avoid_print
+
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,15 +11,14 @@ import 'package:just_audio/just_audio.dart';
 import 'package:major_try/widgets/common.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart' as http;
 import '../utils/routes.dart';
 import 'package:major_try/data/globals.dart' as globals;
 
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
 
-  MyPlayer(String sentence) {
-    this._sentence = sentence.trim();
+  MyPlayer(String sentence, {super.key}) {
+    _sentence = sentence.trim();
   }
 
   @override
@@ -28,7 +29,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   String _sentence = "";
 
   _MyPlayerState(String sentence) {
-    this._sentence = sentence;
+    _sentence = sentence;
   }
 
   final _player = AudioPlayer();
@@ -36,8 +37,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    WidgetsBinding.instance.addObserver(this);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
     _init();
@@ -47,7 +48,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     // Inform the operating system of our app's audio attributes etc.
     // We pick a reasonable default for an app that plays speech.
     final session = await AudioSession.instance;
-    await session.configure(AudioSessionConfiguration.speech());
+    await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
     _player.playbackEventStream.listen((event) {},
         onError: (Object e, StackTrace stackTrace) {
@@ -58,7 +59,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     try {
       //bypassing the ngrok warning with header
       await _player.setAudioSource(
-          AudioSource.uri(Uri.parse(globals.url + '/api?query=' + _sentence)));
+          AudioSource.uri(Uri.parse('${globals.url}/api?query=$_sentence')));
     } catch (e) {
       print("Error loading audio source: $e");
     }
@@ -66,7 +67,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
     _player.dispose();
@@ -103,18 +104,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                "Listen",
-                style: context.textTheme.headline1,
-                textAlign: TextAlign.justify,
-              ),
-              Text(
-                " the Sound !",
-                style: context.textTheme.headline2,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               // Display play/pause button and volume/speed sliders.
               ControlButtons(_player),
               // Display seek bar. Using StreamBuilder, this widget rebuilds
@@ -132,6 +121,10 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                   );
                 },
               ),
+              const SizedBox(
+                height: 100,
+              ),
+
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, MyRoutes.handsRoute);
@@ -157,7 +150,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
 
-  ControlButtons(this.player);
+  const ControlButtons(this.player, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +159,7 @@ class ControlButtons extends StatelessWidget {
       children: [
         // Opens volume slider dialog
         IconButton(
-          icon: Icon(Icons.volume_up),
+          icon: const Icon(Icons.volume_up),
           onPressed: () {
             showSliderDialog(
               context: context,
@@ -194,26 +187,26 @@ class ControlButtons extends StatelessWidget {
             if (processingState == ProcessingState.loading ||
                 processingState == ProcessingState.buffering) {
               return Container(
-                margin: EdgeInsets.all(8.0),
+                margin: const EdgeInsets.all(8.0),
                 width: 64.0,
                 height: 64.0,
-                child: CircularProgressIndicator(),
+                child: const CircularProgressIndicator(),
               );
             } else if (playing != true) {
               return IconButton(
-                icon: Icon(Icons.play_arrow),
+                icon: const Icon(Icons.play_arrow),
                 iconSize: 64.0,
                 onPressed: player.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
-                icon: Icon(Icons.pause),
+                icon: const Icon(Icons.pause),
                 iconSize: 64.0,
                 onPressed: player.pause,
               );
             } else {
               return IconButton(
-                icon: Icon(Icons.replay),
+                icon: const Icon(Icons.replay),
                 iconSize: 64.0,
                 onPressed: () => player.seek(Duration.zero),
               );
@@ -225,7 +218,7 @@ class ControlButtons extends StatelessWidget {
           stream: player.speedStream,
           builder: (context, snapshot) => IconButton(
             icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: const TextStyle(fontWeight: FontWeight.bold)),
             onPressed: () {
               showSliderDialog(
                 context: context,
