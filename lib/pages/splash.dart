@@ -136,7 +136,7 @@ class _BottomPart extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, MyRoutes.homeRoute);
+                  Navigator.pushNamed(context, MyRoutes.handsRoute);
                 },
                 child: Container(
                   height: 40.0,

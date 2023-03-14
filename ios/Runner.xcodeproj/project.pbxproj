@@ -68,7 +68,6 @@
 				E8D7908318E3A0D3B575BE38 /* Pods-Runner.release.xcconfig */,
 				FE31C5B3E362C627D73AF2B0 /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -364,6 +363,25 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"sqlite3\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"audio_service\"",
+					"-framework",
+					"\"audio_session\"",
+					"-framework",
+					"\"flutter_keyboard_visibility\"",
+					"-framework",
+					"\"just_audio\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"sqflite\"",
+					"-|c++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.aawaj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -492,6 +510,25 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"sqlite3\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"audio_service\"",
+					"-framework",
+					"\"audio_session\"",
+					"-framework",
+					"\"flutter_keyboard_visibility\"",
+					"-framework",
+					"\"just_audio\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"sqflite\"",
+					"-|c++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.aawaj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -513,6 +550,25 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"sqlite3\"",
+					"-framework",
+					"\"FMDB\"",
+					"-framework",
+					"\"audio_service\"",
+					"-framework",
+					"\"audio_session\"",
+					"-framework",
+					"\"flutter_keyboard_visibility\"",
+					"-framework",
+					"\"just_audio\"",
+					"-framework",
+					"\"path_provider_foundation\"",
+					"-framework",
+					"\"sqflite\"",
+					"-|c++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.aawaj;
 				PRODUCT_NAME = "$(TARGET_NAME)";

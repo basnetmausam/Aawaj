@@ -4,15 +4,21 @@
 
 // ignore_for_file: avoid_print
 
+import 'dart:async';
+import 'dart:io';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:major_try/widgets/common.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../utils/routes.dart';
 import 'package:major_try/data/globals.dart' as globals;
+
+import 'package:flutter_sound/flutter_sound.dart' hide PlayerState;
+import 'package:path_provider/path_provider.dart';
 
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
@@ -26,6 +32,10 @@ class MyPlayer extends StatefulWidget {
 }
 
 class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
+  bool _isRecording = false;
+  FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  String _audioFilePath = '';
+
   String _sentence = "";
 
   _MyPlayerState(String sentence) {
@@ -38,10 +48,20 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    initRecorder();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
     _init();
+  }
+
+  Future initRecorder() async {
+    final status = await Permission.microphone.request();
+    if (status != PermissionStatus.granted) {
+      throw 'Microphone permission not granted.';
+    }
+    await _recorder.openRecorder();
   }
 
   Future<void> _init() async {
@@ -68,6 +88,8 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+
+    _recorder.closeRecorder();
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
     _player.dispose();
@@ -94,6 +116,44 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
+  Future<void> _startRecording() async {
+    try {
+      await _recorder.openRecorder();
+      await _recorder.startRecorder(toFile: _audioFilePath);
+      setState(() {
+        _isRecording = true;
+      });
+    } catch (e) {
+      print('Error starting recording: $e');
+    }
+  }
+
+  Future<void> _stopRecording() async {
+    try {
+      await _recorder.stopRecorder();
+      await _recorder.closeRecorder();
+      setState(() {
+        _isRecording = false;
+      });
+      print('Audio file saved to: $_audioFilePath');
+    } catch (e) {
+      print('Error stopping recording: $e');
+    }
+  }
+
+  Future<void> _saveAudioFile() async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+    String fileName = '${DateTime.now().millisecondsSinceEpoch}.m4a';
+    String filePath = '$appDocPath/$fileName';
+    File audioFile = File(_audioFilePath);
+    await audioFile.copy(filePath);
+    setState(() {
+      _audioFilePath = filePath;
+    });
+    print('Audio file saved to: $_audioFilePath');
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -105,9 +165,13 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Display play/pause button and volume/speed sliders.
-              ControlButtons(_player),
+              // ControlButtons(_player),
               // Display seek bar. Using StreamBuilder, this widget rebuilds
               // each time the position, buffered position or duration changes.
+              Text(
+                _sentence,
+                style: context.textTheme.bodyLarge,
+              ).py12(),
               StreamBuilder<PositionData>(
                 stream: _positionDataStream,
                 builder: (context, snapshot) {
@@ -122,7 +186,40 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
                 },
               ),
               const SizedBox(
-                height: 100,
+                height: 300,
+              ),
+
+              GestureDetector(
+                onLongPressStart: (details) async {
+                  if (_isRecording) {
+                    return;
+                  }
+                  Directory appDocDir =
+                      await getApplicationDocumentsDirectory();
+                  String appDocPath = appDocDir.path;
+                  String fileName =
+                      '${DateTime.now().millisecondsSinceEpoch}.m4a';
+                  String filePath = '$appDocPath/$fileName';
+                  setState(() {
+                    _audioFilePath = filePath;
+                  });
+                  _startRecording();
+                },
+                onLongPressEnd: (details) {
+                  if (!_isRecording) {
+                    return;
+                  }
+                  _stopRecording();
+                  _saveAudioFile();
+                },
+                child: Icon(
+                  Icons.mic,
+                  size: 50.0,
+                  color: _isRecording ? Colors.red : Colors.grey,
+                ),
+              ),
+              const SizedBox(
+                height: 200,
               ),
 
               ElevatedButton(

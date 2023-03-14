@@ -9,7 +9,7 @@ class OutputPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Listen the Sound !"),
+        title: const Text("Listen the Sound"),
       ),
       body: MyPlayer(sentence),
     );

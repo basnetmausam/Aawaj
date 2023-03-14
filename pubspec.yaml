@@ -43,6 +43,10 @@ dependencies:
   just_audio: ^0.9.31
   rxdart: ^0.27.7
   http: ^0.13.5
+  microphone: ^0.1.0
+  flutter_sound: ^9.2.13
+  path_provider: ^2.0.13
+  permission_handler: ^10.2.0
   
 
 dev_dependencies:
