@@ -9,8 +9,10 @@ import 'dart:io';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:major_try/widgets/common.dart';
+import 'package:major_try/widgets/recording.dart';
+import 'package:major_try/widgets/seekbar.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -32,8 +34,7 @@ class MyPlayer extends StatefulWidget {
 }
 
 class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
-  bool _isRecording = false;
-  FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  // final recorder = FlutterSoundRecorder();
   String _audioFilePath = '';
 
   String _sentence = "";
@@ -49,20 +50,20 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    initRecorder();
+    // initRecorder();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
     _init();
   }
 
-  Future initRecorder() async {
-    final status = await Permission.microphone.request();
-    if (status != PermissionStatus.granted) {
-      throw 'Microphone permission not granted.';
-    }
-    await _recorder.openRecorder();
-  }
+  // Future initRecorder() async {
+  //   final status = await Permission.microphone.request();
+  //   if (status != PermissionStatus.granted) {
+  //     throw 'Microphone permission not granted.';
+  //   }
+  //   await recorder.openRecorder();
+  // }
 
   Future<void> _init() async {
     // Inform the operating system of our app's audio attributes etc.
@@ -89,7 +90,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
 
-    _recorder.closeRecorder();
+    // recorder.closeRecorder();
     // Release decoders and buffers back to the operating system making them
     // available for other apps to use.
     _player.dispose();
@@ -116,43 +117,46 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  Future<void> _startRecording() async {
-    try {
-      await _recorder.openRecorder();
-      await _recorder.startRecorder(toFile: _audioFilePath);
-      setState(() {
-        _isRecording = true;
-      });
-    } catch (e) {
-      print('Error starting recording: $e');
-    }
+  Future startRecording() async {
+    // await recorder.startRecorder();
+
+    // try {
+    //   await _recorder.openRecorder();
+    //   await _recorder.startRecorder(toFile: _audioFilePath);
+    //   setState(() {
+    //     _isRecording = true;
+    //   });
+    // } catch (e) {
+    //   print('Error starting recording: $e');
+    // }
   }
 
-  Future<void> _stopRecording() async {
-    try {
-      await _recorder.stopRecorder();
-      await _recorder.closeRecorder();
-      setState(() {
-        _isRecording = false;
-      });
-      print('Audio file saved to: $_audioFilePath');
-    } catch (e) {
-      print('Error stopping recording: $e');
-    }
+  Future stopRecording() async {
+    // await recorder.stopRecorder();
+    // try {
+    //   await _recorder.stopRecorder();
+    //   await _recorder.closeRecorder();
+    //   setState(() {
+    //     _isRecording = false;
+    //   });
+    //   print('Audio file saved to: $_audioFilePath');
+    // } catch (e) {
+    //   print('Error stopping recording: $e');
+    // }
   }
 
-  Future<void> _saveAudioFile() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-    String fileName = '${DateTime.now().millisecondsSinceEpoch}.m4a';
-    String filePath = '$appDocPath/$fileName';
-    File audioFile = File(_audioFilePath);
-    await audioFile.copy(filePath);
-    setState(() {
-      _audioFilePath = filePath;
-    });
-    print('Audio file saved to: $_audioFilePath');
-  }
+  // Future<void> _saveAudioFile() async {
+  //   Directory appDocDir = await getApplicationDocumentsDirectory();
+  //   String appDocPath = appDocDir.path;
+  //   String fileName = 'voice_temp`.m4a';
+  //   String filePath = '$appDocPath/$fileName';
+  //   File audioFile = File(_audioFilePath);
+  //   await audioFile.copy(filePath);
+  //   setState(() {
+  //     _audioFilePath = filePath;
+  //   });
+  //   print('Audio file saved to: $_audioFilePath');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +169,7 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Display play/pause button and volume/speed sliders.
-              // ControlButtons(_player),
+              ControlButtons(_player),
               // Display seek bar. Using StreamBuilder, this widget rebuilds
               // each time the position, buffered position or duration changes.
               Text(
@@ -188,38 +192,52 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
               const SizedBox(
                 height: 300,
               ),
+              const Recorder(),
+              // ElevatedButton(
+              //     onPressed: () async {
+              //       if (recorder.isRecording) {
+              //         await stopRecording();
+              //       } else {
+              //         await startRecording();
+              //       }
+              //       setState(() {});
+              //     },
+              //     child: Icon(
+              //       recorder.isRecording ? Icons.stop : Icons.mic,
+              //       size: 80,
+              //     )),
 
-              GestureDetector(
-                onLongPressStart: (details) async {
-                  if (_isRecording) {
-                    return;
-                  }
-                  Directory appDocDir =
-                      await getApplicationDocumentsDirectory();
-                  String appDocPath = appDocDir.path;
-                  String fileName =
-                      '${DateTime.now().millisecondsSinceEpoch}.m4a';
-                  String filePath = '$appDocPath/$fileName';
-                  setState(() {
-                    _audioFilePath = filePath;
-                  });
-                  _startRecording();
-                },
-                onLongPressEnd: (details) {
-                  if (!_isRecording) {
-                    return;
-                  }
-                  _stopRecording();
-                  _saveAudioFile();
-                },
-                child: Icon(
-                  Icons.mic,
-                  size: 50.0,
-                  color: _isRecording ? Colors.red : Colors.grey,
-                ),
-              ),
+              // GestureDetector(
+              //   onLongPressStart: (details) async {
+              //     if (_isRecording) {
+              //       return;
+              //     }
+              //     Directory appDocDir =
+              //         await getApplicationDocumentsDirectory();
+              //     String appDocPath = appDocDir.path;
+              //     String fileName =
+              //         'record_temp.m4a';
+              //     String filePath = '$appDocPath/$fileName';
+              //     setState(() {
+              //       _audioFilePath = filePath;
+              //     });
+              //     _startRecording();
+              //   },
+              //   onLongPressEnd: (details) {
+              //     if (!_isRecording) {
+              //       return;
+              //     }
+              //     _stopRecording();
+              //     _saveAudioFile();
+              //   },
+              //   child: Icon(
+              //     Icons.mic,
+              //     size: 50.0,
+              //     color: _isRecording ? Colors.red : Colors.grey,
+              //   ),
+              // ),
               const SizedBox(
-                height: 200,
+                height: 100,
               ),
 
               ElevatedButton(
@@ -246,7 +264,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
 /// Displays the play/pause button and volume/speed sliders.
 class ControlButtons extends StatelessWidget {
   final AudioPlayer player;
-
   const ControlButtons(this.player, {super.key});
 
   @override
@@ -254,27 +271,11 @@ class ControlButtons extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // Opens volume slider dialog
-        IconButton(
-          icon: const Icon(Icons.volume_up),
-          onPressed: () {
-            showSliderDialog(
-              context: context,
-              title: "Adjust volume",
-              divisions: 10,
-              min: 0.0,
-              max: 1.0,
-              value: player.volume,
-              stream: player.volumeStream,
-              onChanged: player.setVolume,
-            );
-          },
-        ),
-
         /// This StreamBuilder rebuilds whenever the player state changes, which
         /// includes the playing/paused state and also the
         /// loading/buffering/ready state. Depending on the state we show the
         /// appropriate button or loading indicator.
+
         StreamBuilder<PlayerState>(
           stream: player.playerStateStream,
           builder: (context, snapshot) {
@@ -291,19 +292,19 @@ class ControlButtons extends StatelessWidget {
               );
             } else if (playing != true) {
               return IconButton(
-                icon: const Icon(Icons.play_arrow),
+                icon: const Icon(Ionicons.play_outline),
                 iconSize: 64.0,
                 onPressed: player.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
-                icon: const Icon(Icons.pause),
+                icon: const Icon(Ionicons.pause),
                 iconSize: 64.0,
                 onPressed: player.pause,
               );
             } else {
               return IconButton(
-                icon: const Icon(Icons.replay),
+                icon: const Icon(Ionicons.arrow_redo_outline),
                 iconSize: 64.0,
                 onPressed: () => player.seek(Duration.zero),
               );
@@ -311,25 +312,6 @@ class ControlButtons extends StatelessWidget {
           },
         ),
         // Opens speed slider dialog
-        StreamBuilder<double>(
-          stream: player.speedStream,
-          builder: (context, snapshot) => IconButton(
-            icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-            onPressed: () {
-              showSliderDialog(
-                context: context,
-                title: "Adjust speed",
-                divisions: 10,
-                min: 0.5,
-                max: 1.5,
-                value: player.speed,
-                stream: player.speedStream,
-                onChanged: player.setSpeed,
-              );
-            },
-          ),
-        ),
       ],
     );
   }
