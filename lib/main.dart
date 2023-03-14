@@ -17,7 +17,7 @@ void main() async {
   //initilize Hive
   await Hive.initFlutter();
   // open HiveBox
-  var box = await Hive.openBox("hive_box");
+  await Hive.openBox("hive_box");
 
   // referencing the box
   final myBox = Hive.box("hive_box");

@@ -50,7 +50,6 @@ class _PhrasePageState extends State<PhrasePage> {
     //reference our box
     final myBox = Hive.box("hive_box");
     List list = myBox.values.toList();
-    print(myBox.values.toList());
 
     // write data
     void addData(String myPhrase) {
@@ -120,7 +119,6 @@ class _PhrasePageState extends State<PhrasePage> {
                           ),
                         ),
                         onSuggestionSelected: (String? suggestion) {
-                          // print(suggestion);
                           var lis = controllerWord.text.split(' ');
 
                           var nayaList =
