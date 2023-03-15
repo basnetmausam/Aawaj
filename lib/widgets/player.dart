@@ -5,6 +5,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ import 'package:velocity_x/velocity_x.dart';
 import '../utils/routes.dart';
 import 'package:major_try/data/globals.dart' as globals;
 
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter_sound/flutter_sound.dart' hide PlayerState;
 import 'package:path_provider/path_provider.dart';
 
@@ -117,47 +120,6 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
           (position, bufferedPosition, duration) => PositionData(
               position, bufferedPosition, duration ?? Duration.zero));
 
-  Future startRecording() async {
-    // await recorder.startRecorder();
-
-    // try {
-    //   await _recorder.openRecorder();
-    //   await _recorder.startRecorder(toFile: _audioFilePath);
-    //   setState(() {
-    //     _isRecording = true;
-    //   });
-    // } catch (e) {
-    //   print('Error starting recording: $e');
-    // }
-  }
-
-  Future stopRecording() async {
-    // await recorder.stopRecorder();
-    // try {
-    //   await _recorder.stopRecorder();
-    //   await _recorder.closeRecorder();
-    //   setState(() {
-    //     _isRecording = false;
-    //   });
-    //   print('Audio file saved to: $_audioFilePath');
-    // } catch (e) {
-    //   print('Error stopping recording: $e');
-    // }
-  }
-
-  // Future<void> _saveAudioFile() async {
-  //   Directory appDocDir = await getApplicationDocumentsDirectory();
-  //   String appDocPath = appDocDir.path;
-  //   String fileName = 'voice_temp`.m4a';
-  //   String filePath = '$appDocPath/$fileName';
-  //   File audioFile = File(_audioFilePath);
-  //   await audioFile.copy(filePath);
-  //   setState(() {
-  //     _audioFilePath = filePath;
-  //   });
-  //   print('Audio file saved to: $_audioFilePath');
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -237,9 +199,44 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
               //   ),
               // ),
               const SizedBox(
-                height: 100,
+                height: 20,
               ),
+              ElevatedButton(
+                onPressed: () async {
+                  var audioFile = File(globals.asr_file_path);
+                  var url = Uri.parse(globals.url + "/asr");
+                  var request = new http.MultipartRequest("POST", url);
+                  print("yaa chuuu");
+                  if (audioFile != null) {
+                    print("true");
+                    request.files.add(http.MultipartFile(
+                      'file',
+                      audioFile.readAsBytes().asStream(),
+                      audioFile.lengthSync(),
+                      filename: "audio.mp4",
+                      contentType: MediaType.parse("audio/mp4"),
+                    ));
+                  }
+                  final response = await request.send();
+                  http.Response res = await http.Response.fromStream(response);
 
+                  final resJson = jsonDecode(res.body);
+                  var message = resJson["message"];
+                  print(message);
+                  setState(() {});
+                },
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(190, 50),
+                    backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    textStyle: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold)),
+                child: const Text('Transcribe !'),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, MyRoutes.handsRoute);
