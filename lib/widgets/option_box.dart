@@ -38,7 +38,9 @@ class OptionBox extends StatelessWidget {
         SizedBox(
           height: height / 46.6,
         ),
-        Text(text1, style: context.textTheme.displaySmall),
+        Text(text1,
+            style: context.textTheme.displaySmall
+                ?.copyWith(color: context.primaryColor)),
         Text(
           text2,
           style: context.textTheme.headlineMedium,

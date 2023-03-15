@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:http/http.dart' as http;
 
+import 'package:major_try/data/globals.dart' as globals;
 import '../../../data/words_data.dart';
 import '../../output_page.dart';
-import 'noun_page.dart';
+import 'general_page.dart';
 
 class PronounPage extends StatefulWidget {
   final TextEditingController tappedWords;
@@ -19,9 +23,25 @@ class PronounPage extends StatefulWidget {
 }
 
 class _PronounPageState extends State<PronounPage> {
-  List<String> pronoun = pronounList;
+  List<String> pronoun = [];
   List<String> matra = matraList;
-  List<String> list = pronounList;
+  List<String> list = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    final response = await http
+        .get(Uri.parse("${globals.url}/get-next-words?query=<start>"));
+
+    List<dynamic> dynamicList = jsonDecode(response.body)["next_words"];
+    pronoun = dynamicList.cast<String>();
+    list = pronoun;
+    setState(() {});
+  }
 
   bool isMobile(BuildContext context) =>
       MediaQuery.of(context).size.width < 600;
@@ -32,7 +52,14 @@ class _PronounPageState extends State<PronounPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap-Tap Go!"),
+        title: Text(
+          "Aawaj",
+          style: TextStyle(
+              color: context.primaryColor, fontWeight: FontWeight.w500),
+        ),
+        iconTheme: IconThemeData(color: context.primaryColor),
+        elevation: 1,
+        backgroundColor: context.canvasColor,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -85,13 +112,18 @@ class _PronounPageState extends State<PronounPage> {
                                 sentence: widget.tappedWords.text))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(150, 50),
-                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                  child: const Text('Speak !'),
+                    minimumSize: const Size(150, 40),
+                    backgroundColor: context.primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                  ),
+                  child: Text(
+                    'Speak !',
+                    style: TextStyle(
+                      color: context.canvasColor,
+                      fontSize: 25,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -99,16 +131,21 @@ class _PronounPageState extends State<PronounPage> {
                         context,
                         MaterialPageRoute(
                             builder: ((context) =>
-                                NounPage(tappedWords: widget.tappedWords))));
+                                GeneralPage(tappedWords: widget.tappedWords))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(150, 50),
-                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                  child: const Text('Next !'),
+                    minimumSize: const Size(150, 40),
+                    backgroundColor: context.primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                  ),
+                  child: Text(
+                    'Next !',
+                    style: TextStyle(
+                      color: context.canvasColor,
+                      fontSize: 25,
+                    ),
+                  ),
                 ),
               ],
             ).py8(),
@@ -140,7 +177,7 @@ class _PronounPageState extends State<PronounPage> {
             context,
             MaterialPageRoute(
                 builder: ((context) =>
-                    NounPage(tappedWords: widget.tappedWords))));
+                    GeneralPage(tappedWords: widget.tappedWords))));
       },
       child: Card(
           // elevation: 10,

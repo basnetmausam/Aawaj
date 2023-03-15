@@ -41,7 +41,14 @@ class _TypePageState extends State<TypePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Type and Go!"),
+        title: Text(
+          "Aawaj",
+          style: TextStyle(
+              color: context.primaryColor, fontWeight: FontWeight.w500),
+        ),
+        iconTheme: IconThemeData(color: context.primaryColor),
+        elevation: 1,
+        backgroundColor: context.canvasColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -123,12 +130,13 @@ class _TypePageState extends State<TypePage> {
                         builder: ((context) =>
                             OutputPage(sentence: controllerWord.text))));
               },
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: context.primaryColor),
               child: const Text(
                 "Speak",
-                style: TextStyle(fontSize: 32),
-              ).py12(),
-            ).px32(),
+                style: TextStyle(fontSize: 25),
+              ).py16(),
+            ).px24(),
           ],
         ),
       ),

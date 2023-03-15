@@ -12,7 +12,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:major_try/widgets/recording.dart';
 import 'package:major_try/widgets/seekbar.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../utils/routes.dart';
@@ -20,8 +19,6 @@ import 'package:major_try/data/globals.dart' as globals;
 
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:flutter_sound/flutter_sound.dart' hide PlayerState;
-import 'package:path_provider/path_provider.dart';
 
 class MyPlayer extends StatefulWidget {
   String _sentence = "";
@@ -36,7 +33,6 @@ class MyPlayer extends StatefulWidget {
 
 class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   // final recorder = FlutterSoundRecorder();
-  String _audioFilePath = '';
 
   String _sentence = "";
 
@@ -72,19 +68,14 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
     final session = await AudioSession.instance;
     await session.configure(const AudioSessionConfiguration.speech());
     // Listen to errors during playback.
-    _player.playbackEventStream.listen((event) {},
-        onError: (Object e, StackTrace stackTrace) {
-      print('A stream error occurred: $e');
-    });
+    _player.playbackEventStream
+        .listen((event) {}, onError: (Object e, StackTrace stackTrace) {});
 
     // Try to load audio from a source and catch any errors.
-    try {
-      //bypassing the ngrok warning with header
-      await _player.setAudioSource(
-          AudioSource.uri(Uri.parse('${globals.url}/api?query=$_sentence')));
-    } catch (e) {
-      print("Error loading audio source: $e");
-    }
+
+    //bypassing the ngrok warning with header
+    await _player.setAudioSource(
+        AudioSource.uri(Uri.parse('${globals.url}/api?query=$_sentence')));
   }
 
   @override
@@ -122,130 +113,120 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Card(
-            child: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  ControlButtons(_player),
-                  Text(
-                    _sentence,
-                    style: context.textTheme.bodyLarge,
-                  ).py12(),
-                  StreamBuilder<PositionData>(
-                    stream: _positionDataStream,
-                    builder: (context, snapshot) {
-                      final positionData = snapshot.data;
-                      return SeekBar(
-                        duration: positionData?.duration ?? Duration.zero,
-                        position: positionData?.position ?? Duration.zero,
-                        bufferedPosition:
-                            positionData?.bufferedPosition ?? Duration.zero,
-                        onChangeEnd: _player.seek,
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  )
-                ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        SizedBox(
+          height: height / 3.5,
+          child: Column(
+            children: [
+              ControlButtons(_player),
+              Text(
+                _sentence,
+                style: context.textTheme.bodyLarge
+                    ?.copyWith(color: context.primaryColor),
+              ).py12(),
+              StreamBuilder<PositionData>(
+                stream: _positionDataStream,
+                builder: (context, snapshot) {
+                  final positionData = snapshot.data;
+                  return SeekBar(
+                    duration: positionData?.duration ?? Duration.zero,
+                    position: positionData?.position ?? Duration.zero,
+                    bufferedPosition:
+                        positionData?.bufferedPosition ?? Duration.zero,
+                    onChangeEnd: _player.seek,
+                  );
+                },
               ),
-            ),
+            ],
           ),
-          Card(
-            child: Container(
-              width: width,
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  SingleChildScrollView(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    scrollDirection: Axis.vertical,
-                    child: Text(
-                      responseText,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
-                          color: Color.fromARGB(255, 21, 58, 121)),
-                    ).py12(),
-                  ),
-                  !responseText.isEmpty
-                      ? IconButton(
-                          onPressed: () {
-                            setState(() {
-                              responseText = "";
-                            });
-                          },
-                          icon: Icon(Icons.clear))
-                      : Container(),
-                  const Recorder().py32(),
-                  ElevatedButton(
-                    onPressed: () async {
-                      var audioFile = File(globals.asr_file_path);
-                      var url = Uri.parse("${globals.url}/asr");
-                      var request = http.MultipartRequest("POST", url);
-
-                      request.files.add(http.MultipartFile(
-                        'file',
-                        audioFile.readAsBytes().asStream(),
-                        audioFile.lengthSync(),
-                        filename: "audio.mp4",
-                        contentType: MediaType.parse("audio/mp4"),
-                      ));
-                      final response = await request.send();
-                      http.Response res =
-                          await http.Response.fromStream(response);
-
-                      final resJson = jsonDecode(res.body);
-                      var message = resJson["message"];
-
-                      setState(() {
-                        responseText = message;
-                      });
-                    },
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(190, 50),
-                        backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 20),
-                        textStyle: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold)),
-                    child: const Text('Transcribe !'),
-                  ),
-                ],
+        ).px12().py12(),
+        const Divider(
+          thickness: 3,
+          // color: context.primaryColor,
+        ),
+        SizedBox(
+          height: height / 3.5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Text(
+                  responseText,
+                  style: context.textTheme.bodyLarge
+                      ?.copyWith(color: context.primaryColor),
+                ).py12(),
               ),
-            ),
-          ),
+              responseText.isNotEmpty
+                  ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          responseText = "";
+                        });
+                      },
+                      icon: const Icon(Icons.clear),
+                    )
+                  : Container(),
+              const Recorder(),
+              ElevatedButton(
+                onPressed: () async {
+                  var audioFile = File(globals.asrFilePath);
+                  var url = Uri.parse("${globals.url}/asr");
+                  var request = http.MultipartRequest("POST", url);
 
-          // Display play/pause button and volume/speed sliders.
-          // Display seek bar. Using StreamBuilder, this widget rebuilds
-          // each time the position, buffered position or duration changes.
+                  request.files.add(http.MultipartFile(
+                    'file',
+                    audioFile.readAsBytes().asStream(),
+                    audioFile.lengthSync(),
+                    filename: "audio.mp4",
+                    contentType: MediaType.parse("audio/mp4"),
+                  ));
+                  final response = await request.send();
+                  http.Response res = await http.Response.fromStream(response);
 
-          Card(
-            child: Container(
-              width: width,
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, MyRoutes.handsRoute);
+                  final resJson = jsonDecode(res.body);
+                  var message = resJson["message"];
+
+                  setState(() {
+                    responseText = message;
+                  });
                 },
                 style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(190, 50),
-                    backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20),
-                    textStyle: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold)),
-                child: const Text('Speak Again !'),
+                  backgroundColor: context.primaryColor,
+                ),
+                child: Text(
+                  'Transcribe !',
+                  style: TextStyle(
+                    color: context.canvasColor,
+                    fontSize: 25,
+                  ),
+                ).py12(),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        ).px12().py12(),
+        const Divider(
+          thickness: 3,
+          // color: context.primaryColor,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, MyRoutes.handsRoute);
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: context.primaryColor,
+          ),
+          child: Text(
+            'Speak Again !',
+            style: TextStyle(
+              color: context.canvasColor,
+              fontSize: 25,
+            ),
+          ).py12(),
+        ),
+      ],
     );
   }
 }
@@ -275,26 +256,31 @@ class ControlButtons extends StatelessWidget {
                 processingState == ProcessingState.buffering) {
               return Container(
                 margin: const EdgeInsets.all(8.0),
-                width: 64.0,
-                height: 64.0,
-                child: const CircularProgressIndicator(),
+                width: 55.0,
+                height: 55.0,
+                child: CircularProgressIndicator(
+                  color: context.primaryColor,
+                ),
               );
             } else if (playing != true) {
               return IconButton(
+                color: context.primaryColor,
                 icon: const Icon(Ionicons.play_outline),
-                iconSize: 64.0,
+                iconSize: 55.0,
                 onPressed: player.play,
               );
             } else if (processingState != ProcessingState.completed) {
               return IconButton(
+                color: context.primaryColor,
                 icon: const Icon(Ionicons.pause),
-                iconSize: 64.0,
+                iconSize: 55.0,
                 onPressed: player.pause,
               );
             } else {
               return IconButton(
+                color: context.primaryColor,
                 icon: const Icon(Ionicons.arrow_redo_outline),
-                iconSize: 64.0,
+                iconSize: 55.0,
                 onPressed: () => player.seek(Duration.zero),
               );
             }

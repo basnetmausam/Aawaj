@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../api/transliteration_api.dart';
@@ -65,7 +66,16 @@ class _PhrasePageState extends State<PhrasePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap Words to generate text"),
+        title: Center(
+          child: Text(
+            "Aawaj",
+            style: TextStyle(
+                color: context.primaryColor, fontWeight: FontWeight.w500),
+          ),
+        ),
+        iconTheme: IconThemeData(color: context.primaryColor),
+        elevation: 1,
+        backgroundColor: context.canvasColor,
         actions: [
           IconButton(
             onPressed: () {
@@ -134,12 +144,20 @@ class _PhrasePageState extends State<PhrasePage> {
                     ),
                     actions: [
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(context.primaryColor),
+                        ),
                         child: const Text("Cancel"),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(context.primaryColor),
+                        ),
                         child: const Text("Save"),
                         onPressed: () {
                           addData(controllerWord.text);
@@ -153,7 +171,9 @@ class _PhrasePageState extends State<PhrasePage> {
                 },
               );
             },
-            icon: const Icon(Icons.add_box),
+            icon: const Icon(
+              Ionicons.add_circle_outline,
+            ),
           ),
           IconButton(
             onPressed: () {
@@ -177,12 +197,20 @@ class _PhrasePageState extends State<PhrasePage> {
                     ),
                     actions: [
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(context.primaryColor),
+                        ),
                         child: const Text("Cancel"),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(context.primaryColor),
+                        ),
                         child: const Text("Delete"),
                         onPressed: () {
                           removeData(int.parse(controllerInt.text) - 1);
@@ -195,7 +223,9 @@ class _PhrasePageState extends State<PhrasePage> {
                 },
               );
             },
-            icon: const Icon(Icons.delete_rounded),
+            icon: const Icon(
+              Ionicons.trash_outline,
+            ),
           )
         ],
       ),
@@ -250,13 +280,18 @@ class _PhrasePageState extends State<PhrasePage> {
                             PronounPage(tappedWords: tappedWords))));
               },
               style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 50),
-                  backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                  textStyle: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
-              child: const Text('Next !'),
+                minimumSize: const Size(double.infinity, 40),
+                backgroundColor: context.primaryColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              ),
+              child: Text(
+                'Next !',
+                style: TextStyle(
+                  color: context.canvasColor,
+                  fontSize: 25,
+                ),
+              ),
             ),
           ],
         ),

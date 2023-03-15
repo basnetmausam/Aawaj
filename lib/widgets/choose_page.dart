@@ -10,16 +10,6 @@ class ChoosePage extends StatelessWidget {
   }) : super(key: key);
 
   final List<String> mylist;
-  // final String firstText,
-  //     secondText,
-  //     thirdText,
-  //     fourthText,
-  //     fifthText,
-  //     sixthText,
-  //     oneRoute,
-  //     twoRoute,
-  //     firstimage,
-  //     secondimage;
 
   @override
   Widget build(BuildContext context) {

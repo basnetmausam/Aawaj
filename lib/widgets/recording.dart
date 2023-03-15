@@ -6,8 +6,6 @@ import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:major_try/data/globals.dart' as globals;
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 
 class Recorder extends StatefulWidget {
   const Recorder({super.key});
@@ -18,7 +16,7 @@ class Recorder extends StatefulWidget {
 
 class _RecorderState extends State<Recorder> {
   bool _isRecording = false;
-  FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
   String _audioFilePath = '';
 
   @override
@@ -58,8 +56,7 @@ class _RecorderState extends State<Recorder> {
     final path = await _recorder.stopRecorder();
     final audioFile = File(path!);
     _audioFilePath = audioFile.path;
-    print('Recorded audio: $audioFile');
-    globals.asr_file_path = _audioFilePath;
+    globals.asrFilePath = _audioFilePath;
     await _recorder.closeRecorder();
     setState(() {
       _isRecording = false;
@@ -69,18 +66,23 @@ class _RecorderState extends State<Recorder> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPressStart: (details) async {
-        startRecording();
-      },
-      onLongPressEnd: (details) {
-        stopRecording();
-      },
-      child: Icon(
-        Icons.mic,
-        size: 50.0,
-        color: _isRecording ? Colors.red : Colors.grey,
-      ),
-    );
+        onLongPressStart: (details) async {
+          startRecording();
+        },
+        onLongPressEnd: (details) {
+          stopRecording();
+        },
+        child: _isRecording
+            ? const Icon(
+                Ionicons.mic_circle_outline,
+                size: 80.0,
+                color: Colors.red,
+              )
+            : const Icon(
+                Ionicons.mic,
+                size: 50.0,
+                color: Colors.grey,
+              ));
 
     // IconButton(
     //   icon: recorder.isRecording

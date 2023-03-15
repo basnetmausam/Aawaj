@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MyThemes {
   static ThemeData darkTheme(BuildContext context) => ThemeData(
         fontFamily: GoogleFonts.quicksand().fontFamily,
-        cardColor: const Color(0xff810CA8),
+        cardColor: const Color.fromARGB(255, 102, 9, 132),
         canvasColor: const Color(0xff2D033B),
         primaryColor: Colors.white,
 
@@ -43,7 +43,7 @@ class MyThemes {
         fontFamily: GoogleFonts.quicksand().fontFamily,
         cardColor: const Color.fromARGB(255, 228, 224, 230),
         canvasColor: const Color(0xffF5F5F5),
-        primaryColor: Colors.black,
+        primaryColor: Colors.black87,
 
         // THIS IS THE THEMES FOR THE FONTS
         textTheme: TextTheme(

@@ -1,27 +1,56 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:major_try/pages/hands_on_mode/tap_page/verb_page.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:major_try/data/globals.dart' as globals;
 import '../../../data/words_data.dart';
 import '../../output_page.dart';
 
-class NounPage extends StatefulWidget {
+class GeneralPage extends StatefulWidget {
   final TextEditingController tappedWords;
-  const NounPage({
+  const GeneralPage({
     Key? key,
     required this.tappedWords,
   }) : super(key: key);
 
   @override
-  State<NounPage> createState() => _NounPageState();
+  State<GeneralPage> createState() => _GeneralPageState();
 }
 
-class _NounPageState extends State<NounPage> {
-  List<String> noun = nounList;
+class _GeneralPageState extends State<GeneralPage> {
+  List<String> generalList = [];
   List<String> matra = matraList;
-  List<String> list = nounList;
+  List<String> list = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    final response = await http.get(Uri.parse(
+        "${globals.url}/get-next-words?query=${widget.tappedWords.text}"));
+
+    List<dynamic> dynamicList1 = jsonDecode(response.body)["next_words"]["1"];
+    List<dynamic> dynamicList2 = jsonDecode(response.body)["next_words"]["2"];
+    List<dynamic> dynamicList3 = jsonDecode(response.body)["next_words"]["3"];
+    List<dynamic> dynamicList = dynamicList1 + dynamicList2 + dynamicList3;
+
+    if (dynamicList.isEmpty) {
+      final response = await http
+          .get(Uri.parse("${globals.url}/get-next-words?query=<start>"));
+
+      dynamicList = jsonDecode(response.body)["next_words"];
+    }
+    generalList = dynamicList.cast<String>();
+
+    list = generalList;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +58,14 @@ class _NounPageState extends State<NounPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tap-Tap Go!"),
+        title: Text(
+          "Aawaj",
+          style: TextStyle(
+              color: context.primaryColor, fontWeight: FontWeight.w500),
+        ),
+        iconTheme: IconThemeData(color: context.primaryColor),
+        elevation: 1,
+        backgroundColor: context.canvasColor,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -82,30 +118,41 @@ class _NounPageState extends State<NounPage> {
                                 sentence: widget.tappedWords.text))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(150, 50),
-                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                  child: const Text('Speak !'),
+                    minimumSize: const Size(150, 50),
+                    backgroundColor: context.primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                  ),
+                  child: Text(
+                    'Speak !',
+                    style: TextStyle(
+                      color: context.canvasColor,
+                      fontSize: 25,
+                    ),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: ((context) =>
-                                VerbPage(tappedWords: widget.tappedWords))));
+                    _init();
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: ((context) =>
+                    //             VerbPage(tappedWords: widget.tappedWords))));
                   },
                   style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(150, 50),
-                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                  child: const Text('Next !'),
+                    minimumSize: const Size(150, 40),
+                    backgroundColor: context.primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                  ),
+                  child: Text(
+                    'Next !',
+                    style: TextStyle(
+                      color: context.canvasColor,
+                      fontSize: 25,
+                    ),
+                  ),
                 ),
               ],
             ).py8(),
@@ -127,17 +174,18 @@ class _NounPageState extends State<NounPage> {
         // adding the newly tapped words to the previous words.
         if (list == matra) {
           widget.tappedWords.text = "${widget.tappedWords.text}$word";
-          list = noun;
+          list = generalList;
         } else {
           widget.tappedWords.text = "${widget.tappedWords.text} $word";
         }
 
         // setState(() {});
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: ((context) =>
-                    VerbPage(tappedWords: widget.tappedWords))));
+        _init();
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: ((context) =>
+        //             VerbPage(tappedWords: widget.tappedWords))));
       },
       child: Card(
           // elevation: 10,
