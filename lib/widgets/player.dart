@@ -201,39 +201,40 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
               const SizedBox(
                 height: 20,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  var audioFile = File(globals.asr_file_path);
-                  var url = Uri.parse(globals.url + "/asr");
-                  var request = new http.MultipartRequest("POST", url);
-                  print("yaa chuuu");
-                  if (audioFile != null) {
-                    print("true");
-                    request.files.add(http.MultipartFile(
-                      'file',
-                      audioFile.readAsBytes().asStream(),
-                      audioFile.lengthSync(),
-                      filename: "audio.mp4",
-                      contentType: MediaType.parse("audio/mp4"),
-                    ));
-                  }
-                  final response = await request.send();
-                  http.Response res = await http.Response.fromStream(response);
 
-                  final resJson = jsonDecode(res.body);
-                  var message = resJson["message"];
-                  print(message);
-                  setState(() {});
-                },
-                style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(190, 50),
-                    backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20),
-                    textStyle: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold)),
-                child: const Text('Transcribe !'),
-              ),
+              // ElevatedButton(
+              //   onPressed: () async {
+              //     var audioFile = File(globals.asr_file_path);
+              //     var url = Uri.parse(globals.url + "/asr");
+              //     var request = new http.MultipartRequest("POST", url);
+              //     print("yaa chuuu");
+              //     if (audioFile != null) {
+              //       print("true");
+              //       request.files.add(http.MultipartFile(
+              //         'file',
+              //         audioFile.readAsBytes().asStream(),
+              //         audioFile.lengthSync(),
+              //         filename: "audio.mp4",
+              //         contentType: MediaType.parse("audio/mp4"),
+              //       ));
+              //     }
+              //     final response = await request.send();
+              //     http.Response res = await http.Response.fromStream(response);
+
+              //     final resJson = jsonDecode(res.body);
+              //     var message = resJson["message"];
+              //     print(message);
+              //     setState(() {});
+              //   },
+              //   style: ElevatedButton.styleFrom(
+              //       minimumSize: const Size(190, 50),
+              //       backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+              //       padding: const EdgeInsets.symmetric(
+              //           horizontal: 50, vertical: 20),
+              //       textStyle: const TextStyle(
+              //           fontSize: 22, fontWeight: FontWeight.bold)),
+              //   child: const Text('Transcribe !'),
+              // ),
               const SizedBox(
                 height: 20,
               ),
