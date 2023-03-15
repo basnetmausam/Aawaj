@@ -17,10 +17,9 @@ class Recorder extends StatefulWidget {
 }
 
 class _RecorderState extends State<Recorder> {
-  final recorder = FlutterSoundRecorder();
-  bool isRecorderReady = false;
-
-  String audioFilePath = "";
+  bool _isRecording = false;
+  FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  String _audioFilePath = '';
 
   @override
   void initState() {
@@ -30,7 +29,7 @@ class _RecorderState extends State<Recorder> {
 
   @override
   void dispose() {
-    recorder.closeRecorder();
+    _recorder.closeRecorder();
     super.dispose();
   }
 
@@ -39,52 +38,72 @@ class _RecorderState extends State<Recorder> {
     if (status != PermissionStatus.granted) {
       throw 'Microphone permission not granted.';
     }
-    await recorder.openRecorder();
-    isRecorderReady = true;
+    // await recorder.openRecorder();
+    // isRecorderReady = true;
   }
 
   Future startRecording() async {
     final appDocDir = await getApplicationDocumentsDirectory();
     final appDocPath = '${appDocDir.path}/flutter_sound.mp4';
-    if (!isRecorderReady) return;
-    await recorder.startRecorder(toFile: appDocPath, codec: Codec.aacMP4);
+
+    await _recorder.openRecorder();
+
+    await _recorder.startRecorder(toFile: appDocPath, codec: Codec.aacMP4);
+    setState(() {
+      _isRecording = true;
+    });
   }
 
   Future stopRecording() async {
-    if (!isRecorderReady) return;
-    final path = await recorder.stopRecorder();
+    final path = await _recorder.stopRecorder();
     final audioFile = File(path!);
-    audioFilePath = audioFile.path;
+    _audioFilePath = audioFile.path;
     print('Recorded audio: $audioFile');
-    globals.asr_file_path = audioFilePath;
+    globals.asr_file_path = _audioFilePath;
+    await _recorder.closeRecorder();
+    setState(() {
+      _isRecording = false;
+    });
   }
-
-  Future sendData() async {}
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: recorder.isRecording
-          ? const Icon(
-              Ionicons.stop_circle_outline,
-              color: Colors.purple,
-              size: 70,
-            )
-          : const Icon(
-              Ionicons.mic_circle,
-              color: Colors.purple,
-              size: 50,
-            ),
-      onPressed: () async {
-        if (recorder.isRecording) {
-          await stopRecording();
-          setState(() {});
-          await sendData();
-        } else {
-          await startRecording();
-        }
-        setState(() {});
+    return GestureDetector(
+      onLongPressStart: (details) async {
+        startRecording();
       },
+      onLongPressEnd: (details) {
+        stopRecording();
+      },
+      child: Icon(
+        Icons.mic,
+        size: 50.0,
+        color: _isRecording ? Colors.red : Colors.grey,
+      ),
     );
+
+    // IconButton(
+    //   icon: recorder.isRecording
+    //       ? const Icon(
+    //           Ionicons.stop_circle_outline,
+    //           color: Colors.purple,
+    //           size: 70,
+    //         )
+    //       : const Icon(
+    //           Ionicons.mic_circle,
+    //           color: Colors.purple,
+    //           size: 50,
+    //         ),
+    //   onPressed: () async {
+    //     if (recorder.isRecording) {
+    //       await stopRecording();
+    //       setState(() {});
+    //       await sendData();
+    //     } else {
+    //       await startRecording();
+    //     }
+    //     setState(() {});
+    //   },
+    // );
   }
 }
