@@ -15,7 +15,6 @@ import 'package:major_try/widgets/seekbar.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../data/globals.dart';
 import '../utils/routes.dart';
 import 'package:major_try/data/globals.dart' as globals;
 
@@ -124,113 +123,129 @@ class _MyPlayerState extends State<MyPlayer> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return Column(
-      children: [
-        Card(
-          child: SizedBox(
-            height: height / 2 - 100,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 60,
-                ),
-                ControlButtons(_player),
-                Text(
-                  _sentence,
-                  style: context.textTheme.bodyLarge,
-                ).py12(),
-                StreamBuilder<PositionData>(
-                  stream: _positionDataStream,
-                  builder: (context, snapshot) {
-                    final positionData = snapshot.data;
-                    return SeekBar(
-                      duration: positionData?.duration ?? Duration.zero,
-                      position: positionData?.position ?? Duration.zero,
-                      bufferedPosition:
-                          positionData?.bufferedPosition ?? Duration.zero,
-                      onChangeEnd: _player.seek,
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 60,
-                )
-              ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Card(
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  ControlButtons(_player),
+                  Text(
+                    _sentence,
+                    style: context.textTheme.bodyLarge,
+                  ).py12(),
+                  StreamBuilder<PositionData>(
+                    stream: _positionDataStream,
+                    builder: (context, snapshot) {
+                      final positionData = snapshot.data;
+                      return SeekBar(
+                        duration: positionData?.duration ?? Duration.zero,
+                        position: positionData?.position ?? Duration.zero,
+                        bufferedPosition:
+                            positionData?.bufferedPosition ?? Duration.zero,
+                        onChangeEnd: _player.seek,
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 60,
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-        Card(
-          child: SizedBox(
-            height: height / 2 - 100,
-            width: width,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 60,
-                ),
-                Text(
-                  responseText,
-                  style: context.textTheme.bodyLarge,
-                ).py12(),
-                const Recorder().py32(),
-                ElevatedButton(
-                  onPressed: () async {
-                    var audioFile = File(globals.asr_file_path);
-                    var url = Uri.parse("${globals.url}/asr");
-                    var request = http.MultipartRequest("POST", url);
+          Card(
+            child: Container(
+              width: width,
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    scrollDirection: Axis.vertical,
+                    child: Text(
+                      responseText,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 30,
+                          color: Color.fromARGB(255, 21, 58, 121)),
+                    ).py12(),
+                  ),
+                  !responseText.isEmpty
+                      ? IconButton(
+                          onPressed: () {
+                            setState(() {
+                              responseText = "";
+                            });
+                          },
+                          icon: Icon(Icons.clear))
+                      : Container(),
+                  const Recorder().py32(),
+                  ElevatedButton(
+                    onPressed: () async {
+                      var audioFile = File(globals.asr_file_path);
+                      var url = Uri.parse("${globals.url}/asr");
+                      var request = http.MultipartRequest("POST", url);
 
-                    request.files.add(http.MultipartFile(
-                      'file',
-                      audioFile.readAsBytes().asStream(),
-                      audioFile.lengthSync(),
-                      filename: "audio.mp4",
-                      contentType: MediaType.parse("audio/mp4"),
-                    ));
-                    final response = await request.send();
-                    http.Response res =
-                        await http.Response.fromStream(response);
+                      request.files.add(http.MultipartFile(
+                        'file',
+                        audioFile.readAsBytes().asStream(),
+                        audioFile.lengthSync(),
+                        filename: "audio.mp4",
+                        contentType: MediaType.parse("audio/mp4"),
+                      ));
+                      final response = await request.send();
+                      http.Response res =
+                          await http.Response.fromStream(response);
 
-                    final resJson = jsonDecode(res.body);
-                    var message = resJson["message"];
-                    print(message);
+                      final resJson = jsonDecode(res.body);
+                      var message = resJson["message"];
 
-                    setState(() {
-                      responseText = message;
-                    });
-                    print(response);
-                  },
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(190, 50),
-                      backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 20),
-                      textStyle: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                  child: const Text('Transcribe !'),
-                ),
-              ],
+                      setState(() {
+                        responseText = message;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(190, 50),
+                        backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 20),
+                        textStyle: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
+                    child: const Text('Transcribe !'),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        // Display play/pause button and volume/speed sliders.
-        // Display seek bar. Using StreamBuilder, this widget rebuilds
-        // each time the position, buffered position or duration changes.
-        const SizedBox(
-          height: 35,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.pushNamed(context, MyRoutes.handsRoute);
-          },
-          style: ElevatedButton.styleFrom(
-              minimumSize: const Size(190, 50),
-              backgroundColor: const Color.fromARGB(255, 89, 21, 101),
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-              textStyle:
-                  const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          child: const Text('Speak Again !'),
-        ),
-      ],
+
+          // Display play/pause button and volume/speed sliders.
+          // Display seek bar. Using StreamBuilder, this widget rebuilds
+          // each time the position, buffered position or duration changes.
+
+          Card(
+            child: Container(
+              width: width,
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, MyRoutes.handsRoute);
+                },
+                style: ElevatedButton.styleFrom(
+                    minimumSize: const Size(190, 50),
+                    backgroundColor: const Color.fromARGB(255, 89, 21, 101),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    textStyle: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.bold)),
+                child: const Text('Speak Again !'),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
