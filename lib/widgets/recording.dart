@@ -17,6 +17,8 @@ class _RecorderState extends State<Recorder> {
   final recorder = FlutterSoundRecorder();
   bool isRecorderReady = false;
 
+  String audioFilePath = "";
+
   @override
   void initState() {
     super.initState();
@@ -47,12 +49,13 @@ class _RecorderState extends State<Recorder> {
 
   Future stopRecording() async {
     if (!isRecorderReady) return;
-
     final path = await recorder.stopRecorder();
     final audioFile = File(path!);
-
+    audioFilePath = audioFile.path;
     print('Recorded audio: $audioFile');
   }
+
+  Future sendData() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +74,8 @@ class _RecorderState extends State<Recorder> {
       onPressed: () async {
         if (recorder.isRecording) {
           await stopRecording();
+          setState(() {});
+          await sendData();
         } else {
           await startRecording();
         }
