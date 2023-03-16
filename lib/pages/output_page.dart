@@ -11,7 +11,7 @@ class OutputPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Listen the Sound",
+          "        Aawaj Synthesizer",
           style: TextStyle(
               color: context.primaryColor, fontWeight: FontWeight.w500),
         ),

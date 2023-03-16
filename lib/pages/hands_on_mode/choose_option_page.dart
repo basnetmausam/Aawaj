@@ -16,8 +16,8 @@ class HandsOn extends StatelessWidget {
     return Scaffold(
       body: ChoosePage(
         mylist: [
-          'Choose the way',
-          'you want to give input:',
+          'Choose your',
+          'mode of input:',
           'Tap-Tap',
           'GO !',
           'Type',
