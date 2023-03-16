@@ -241,7 +241,7 @@ class _PhrasePageState extends State<PhrasePage> {
             ),
             TextFormField(
               controller: tappedWords,
-              keyboardType: TextInputType.none,
+              keyboardType: TextInputType.text,
               style: TextStyle(color: context.primaryColor),
               decoration: InputDecoration(
                 hintText: 'Tap Words',

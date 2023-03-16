@@ -38,7 +38,7 @@ class _GeneralPageState extends State<GeneralPage> {
     List<dynamic> dynamicList1 = jsonDecode(response.body)["next_words"]["1"];
     List<dynamic> dynamicList2 = jsonDecode(response.body)["next_words"]["2"];
     List<dynamic> dynamicList3 = jsonDecode(response.body)["next_words"]["3"];
-    List<dynamic> dynamicList = dynamicList1 + dynamicList2 + dynamicList3;
+    List<dynamic> dynamicList = dynamicList3 + dynamicList2 + dynamicList1;
 
     if (dynamicList.isEmpty) {
       final response = await http
@@ -77,7 +77,7 @@ class _GeneralPageState extends State<GeneralPage> {
             ),
             TextFormField(
               controller: widget.tappedWords,
-              keyboardType: TextInputType.none,
+              keyboardType: TextInputType.text,
               style: TextStyle(color: context.primaryColor),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(

@@ -71,7 +71,7 @@ class _PronounPageState extends State<PronounPage> {
             ),
             TextFormField(
               controller: widget.tappedWords,
-              keyboardType: TextInputType.none,
+              keyboardType: TextInputType.text,
               style: TextStyle(color: context.primaryColor),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
