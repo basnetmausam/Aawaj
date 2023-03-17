@@ -2,16 +2,16 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:major_try/data/globals.dart' as globals;
 import 'package:flutter/material.dart';
+import 'package:major_try/data/api.dart' as api;
 
 void initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // fetching ngrok web URL and sending skip warning page header initially
   try {
-    final response =
-        await http.get(Uri.parse('https://api.ngrok.com/endpoints'), headers: {
-      'authorization':
-          'Bearer 2IM2LndbwcUOxfcotzI4ZDY45ne_3SxMZVDVFGg7kbv26uW3U',
+    final response = await http
+        .get(Uri.parse('https://api.ngrok.com/endpoints'), headers: {
+      'authorization': 'Bearer ${api.api_key}',
       'ngrok-version': '2'
     }); //fetch URL of ngrok
     final body = json.decode(response.body);
