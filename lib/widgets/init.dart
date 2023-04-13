@@ -13,7 +13,7 @@ void initialize() async {
         .get(Uri.parse('https://api.ngrok.com/endpoints'), headers: {
       'authorization': 'Bearer ${api.api_key}',
       'ngrok-version': '2'
-    }); //fetch URL of ngrok
+    }); //fetch URL of ngrok with api key from api.dart (to be added manually to avoid API key leakage)
     final body = json.decode(response.body);
     globals.url = body["endpoints"][0]["public_url"];
     final _ = await http.get(
