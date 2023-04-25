@@ -1,16 +1,32 @@
-# aawaj_flutter
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![001](https://user-images.githubusercontent.com/74107418/234231619-ef948d84-6be2-4d29-94ce-a16301607c9e.jpg)
+![002](https://user-images.githubusercontent.com/74107418/234231649-0a899d96-8f03-451b-a40d-5e31d7ca102a.jpg)
+![003](https://user-images.githubusercontent.com/74107418/234231656-7bcd18ad-97a1-4acf-97c0-df31e7fe9472.jpg)
+![004](https://user-images.githubusercontent.com/74107418/234231666-4c2f526e-d915-49a0-acf2-78b7a285753d.jpg)
+![005](https://user-images.githubusercontent.com/74107418/234231672-2b40c7eb-e7c7-466d-8eb6-7b748e779c50.jpg)
+![006](https://user-images.githubusercontent.com/74107418/234231679-f64d6d07-0bb8-4bdd-83b6-683a4b9a3d53.jpg)
+![007](https://user-images.githubusercontent.com/74107418/234231688-0e296968-fb97-445b-9314-13048c541593.jpg)
+![008](https://user-images.githubusercontent.com/74107418/234231694-1d375fd7-6b80-4099-9218-04241e8f9c4f.jpg)
+![009](https://user-images.githubusercontent.com/74107418/234231700-1763ba95-a7e8-4978-8b72-57abc3e9fac1.jpg)
+![010](https://user-images.githubusercontent.com/74107418/234231703-d36e03c5-320c-4a82-8137-9edf69a0dd4c.jpg)
+![011](https://user-images.githubusercontent.com/74107418/234231706-88978bc6-73f6-4aac-8a94-59ed1ca9918b.jpg)
+![012](https://user-images.githubusercontent.com/74107418/234231720-685b5c14-cb34-491c-964e-11a5dff746a3.jpg)
+![013](https://user-images.githubusercontent.com/74107418/234231724-634f00f4-cfe9-4570-9d3e-a8ace7b6e89f.jpg)
+![014](https://user-images.githubusercontent.com/74107418/234231730-9d04bede-fb24-45c8-a5be-8a58f779a71a.jpg)
+![015](https://user-images.githubusercontent.com/74107418/234231741-e419ee5c-f535-47e2-ab62-07c17d571e0a.jpg)
+![016](https://user-images.githubusercontent.com/74107418/234231747-7c0e6dc8-32e1-41eb-8a97-365e040781a4.jpg)
+![017](https://user-images.githubusercontent.com/74107418/234231754-bdb54437-a04d-4446-b40b-d58ddba68c59.jpg)
+![018](https://user-images.githubusercontent.com/74107418/234231787-e962afd3-9ffb-498b-8409-ccf2bb7bfa9c.jpg)
+![019](https://user-images.githubusercontent.com/74107418/234231800-06c0909e-364a-4a83-8d7e-aee7ee04274a.jpg)
+![020](https://user-images.githubusercontent.com/74107418/234231806-d5d4784e-f493-4e98-beb4-55767d2fa2c7.jpg)
+![021](https://user-images.githubusercontent.com/74107418/234231815-2b0cf995-1641-4816-a325-d3c95fde21c7.jpg)
+![022](https://user-images.githubusercontent.com/74107418/234231827-5efc8b31-43b7-4d9b-8dd8-8e5409aee9f1.jpg)
+![023](https://user-images.githubusercontent.com/74107418/234231835-ff0f2c19-7ebb-4e51-b6cd-4fe6a192e851.jpg)
+![024](https://user-images.githubusercontent.com/74107418/234231839-df7f9a56-8584-45bd-a7a3-13cde0ccf5c3.jpg)
+![025](https://user-images.githubusercontent.com/74107418/234231846-edf59b50-76e9-43fc-a509-7ef2547f8767.jpg)
+![026](https://user-images.githubusercontent.com/74107418/234231850-3203f837-a482-4a79-8ad8-796b7fb29474.jpg)
+![027](https://user-images.githubusercontent.com/74107418/234231853-df60452f-d758-4c5e-88ad-71150551d5a3.jpg)
+![028](https://user-images.githubusercontent.com/74107418/234231856-3c4010e7-5fee-4be4-9bf9-31bb391296bd.jpg)
+![029](https://user-images.githubusercontent.com/74107418/234231863-baf69eb0-eeb9-4885-84f1-53c28d8b7f70.jpg)
+![030](https://user-images.githubusercontent.com/74107418/234231869-7b5f0dbb-924d-44ba-b7c1-aaf6bbb475fa.jpg)
+https://user-images.githubusercontent.com/74107418/234233687-b8a7393d-cc34-445f-9d73-1715900b13e3.mp4
+![032](https://user-images.githubusercontent.com/74107418/234231877-a8b963d2-5c5f-4f76-a2ee-f1385ead8859.jpg)
